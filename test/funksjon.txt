@@ -1,0 +1,8 @@
+
+denne filen er for å teste klassene i main
+
+dette er for å sjekke at alle klassene funkes som det skal 
+
+det finne positive og negative testing
+
+
