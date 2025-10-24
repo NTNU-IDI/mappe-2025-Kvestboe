@@ -1,14 +1,17 @@
-package edu.ntnu.iir.bidata.home;
+package edu.ntnu.iir.bidata.initialize;
 
 
 public class User {
     
-    private String name;
+    final private String name;
     
     public User(String inputName) {
         name = inputName;
     }
-    
+
+    public void getUsers() {
+
+    }
 
     public boolean checkUser(String inputName) {
         return name.equals(inputName);
