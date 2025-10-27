@@ -8,13 +8,13 @@ import java.util.Scanner;
 
 public class Menu {
 
-    public User createUser(Scanner input, UserManager userManager) {
-        System.out.print("What is your name: ");
-        User author = new User(input.nextLine());
-        System.out.println("Hello, " +  author.getName() + "!");
-        userManager.saveUser(author);
-        return author;
-    }
+//    public User createUser(Scanner input, UserManager userManager) {
+//        System.out.print("What is your name: ");
+//        User author = new User(input.nextLine());
+//        System.out.println("Hello, " +  author.getName() + "!");
+//        userManager.saveUser(author);
+//        return author;
+//    }
 
 //    public User loadUser(String name) {
 //        if (userManager.getUsers().contains(author.getName())) {

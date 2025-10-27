@@ -13,7 +13,7 @@ public class Main {
         UserManager userManager = new UserManager();
 
         Menu menu = new Menu();
-        User author = menu.createUser(input, userManager);
+        User author = userManager.createUser(input);
 
 
 
@@ -39,7 +39,7 @@ public class Main {
                         System.out.println("Hello, "+ author.getName());
 
                     } else if (userChoice.equals("new")) {
-                        author = menu.createUser(input, userManager);
+                        author = userManager.createUser(input);
 
                     } else {
                         System.out.println("Invalid choice.");
