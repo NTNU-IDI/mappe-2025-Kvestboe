@@ -5,4 +5,8 @@ public class DiaryEntry {
     // communicates with ui and storage
     // part that gets displayed, edited, saved by other programs in the project
 
+    public void newEntry() {
+
+    }
+
 }
