@@ -97,7 +97,7 @@ public class DiaryEntry {
     }
 
     public void editDate(Scanner input) {
-        System.out.println("Previous date: " + date);
+        System.out.println("Previous date: " + date.getDate());
         System.out.println("What do you want to change the date to: ");
         System.out.print("Day of month: ");
         int day = input.nextInt();
