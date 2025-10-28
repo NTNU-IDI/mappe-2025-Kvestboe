@@ -13,7 +13,7 @@ public class Main {
         UserManager userManager = new UserManager();
 
         Menu menu = new Menu();
-        User author = userManager.createUser(input);
+        User author = userManager.addUser(input);
 
 
 
@@ -24,7 +24,7 @@ public class Main {
             String menuChoice = input.nextLine();
             System.out.println();
             switch (menuChoice) {
-                case "new" -> menu.initEntry();
+                case "new" -> menu.addEntry(input);
 
                 case "prior" -> menu.priorEntries();
 
@@ -39,7 +39,7 @@ public class Main {
                         System.out.println("Hello, "+ author.getName());
 
                     } else if (userChoice.equals("new")) {
-                        author = userManager.createUser(input);
+                        author = userManager.addUser(input);
 
                     } else {
                         System.out.println("Invalid choice.");

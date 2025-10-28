@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"edu.ntnu.iir.bidata"},{"l":"edu.ntnu.iir.bidata.model"},{"l":"edu.ntnu.iir.bidata.storage"},{"l":"edu.ntnu.iir.bidata.ui"},{"l":"edu.ntnu.iir.bidata.utils"}];updateSearchResults();
