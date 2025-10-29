@@ -31,13 +31,12 @@ public class Menu {
     }
 
     // print entry options
-    public void addEntry(Scanner input) {
-        DiaryStorage newEntry = new DiaryStorage();
-        newEntry.addEntry(input);
+    public void addEntry(Scanner input, DiaryStorage entries) {
+        entries.addEntry(input);
     }
 
     // option for selecting prior entries
-    public void priorEntries() {
-        System.out.println("What do you want to sort the entries by: ");
+    public void priorEntries(Scanner input, DiaryStorage entries) {
+        entries.priorEntries(input);
     }
 }

@@ -1,6 +1,7 @@
 package edu.ntnu.iir.bidata;
 
 import edu.ntnu.iir.bidata.model.User;
+import edu.ntnu.iir.bidata.storage.DiaryStorage;
 import edu.ntnu.iir.bidata.storage.UserManager;
 import edu.ntnu.iir.bidata.ui.Menu;
 import java.util.Scanner;
@@ -15,6 +16,8 @@ public class Main {
         Menu menu = new Menu();
         User author = userManager.addUser(input);
 
+        DiaryStorage entryStorage = new DiaryStorage();
+
 
 
         boolean runProgram = true;
@@ -24,9 +27,9 @@ public class Main {
             String menuChoice = input.nextLine();
             System.out.println();
             switch (menuChoice) {
-                case "new" -> menu.addEntry(input);
+                case "new" -> menu.addEntry(input, entryStorage);
 
-                case "prior" -> menu.priorEntries();
+                case "prior" -> menu.priorEntries(input, entryStorage);
 
                 case "user" -> {
                     menu.userMenu(userManager);

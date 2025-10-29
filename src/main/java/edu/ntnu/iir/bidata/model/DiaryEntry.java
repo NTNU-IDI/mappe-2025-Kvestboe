@@ -1,5 +1,6 @@
 package edu.ntnu.iir.bidata.model;
 
+import edu.ntnu.iir.bidata.storage.DiaryStorage;
 import edu.ntnu.iir.bidata.utils.Date;
 import edu.ntnu.iir.bidata.utils.Format;
 
@@ -52,16 +53,16 @@ public class DiaryEntry {
         tags = inputTags;
     }
 
+    // loop for edit options
     public void editEntry(Scanner input) {
         editMenu();
         String choice = input.nextLine();
 
-        while (choice != "none") {
+        while (!choice.equals("none")) {
             switch (choice) {
                 case "title" -> editTitle(input);
                 case "tag" -> editTags(input);
                 case "date" -> editDate(input);
-                case "none" -> System.out.println();
             }
             editMenu();
             choice = input.nextLine();
@@ -69,6 +70,7 @@ public class DiaryEntry {
 
     }
 
+    // menu for different options
     static void editMenu() {
         System.out.println("Is there anything you want to edit: ");
         System.out.println("title: edit the title");
@@ -78,12 +80,14 @@ public class DiaryEntry {
         System.out.println("none: add entry");
     }
 
+    // method to edit title
     public void editTitle(Scanner input) {
         System.out.println("Previous title: " + title);
         System.out.print("What do you want to change the title to:");
         title = input.nextLine();
     }
 
+    // menu to edit tags
     public void editTags(Scanner input) {
         System.out.println("Previous tags: " + tags);
         System.out.println("Have a space between different tags.");
@@ -96,6 +100,7 @@ public class DiaryEntry {
         }
     }
 
+    // method and menu to edit date
     public void editDate(Scanner input) {
         System.out.println("Previous date: " + date.getDate());
         System.out.println("What do you want to change the date to: ");
@@ -107,12 +112,14 @@ public class DiaryEntry {
         int year = input.nextInt();
     }
 
+    // method to add tags
     static void addTags(String inputTags) {
         ArrayList<String> newTags = formatter.formatTags(inputTags);
 
         tags.addAll(newTags);
     }
 
+    // method to remove tags
     static void removeTags(String inputTags) {
         ArrayList<String> newTags = formatter.formatTags(inputTags);
 
