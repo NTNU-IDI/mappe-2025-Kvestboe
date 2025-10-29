@@ -90,6 +90,7 @@ public class DiaryStorage {
         System.out.println("all: print all entries");
         System.out.println("title: search for a title");
         System.out.println("tag: search by tags");
+        System.out.println("none: exit sorting menu");
 
     }
 
