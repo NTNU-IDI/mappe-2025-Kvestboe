@@ -53,6 +53,10 @@ public class DiaryEntry {
         tags = inputTags;
     }
 
+    public void getContent() {
+        System.out.println(content);
+    }
+
     // loop for edit options
     public void editEntry(Scanner input) {
         editMenu();
@@ -64,7 +68,7 @@ public class DiaryEntry {
                 case "tag" -> editTags(input);
                 case "date" -> editDate(input);
             }
-            editMenu();
+            // editMenu();
             choice = input.nextLine();
         }
 

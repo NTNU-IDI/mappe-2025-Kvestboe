@@ -35,32 +35,52 @@ public class DiaryStorage {
     }
 
     public void priorEntries(Scanner input) {
-        printSortMenu();
-
-        String choice = input.nextLine();
-        while (!choice.equals("none")) {
-            switch (choice) {
-                case "all" -> allEntries();
-                case "title" -> searchTitle(input);
-            }
+        if (entryId != 0) {
             printSortMenu();
-            choice = input.nextLine();
+
+            String choice = input.nextLine();
+            while (!choice.equals("none")) {
+                switch (choice) {
+                    case "all" -> allEntries();
+                    case "title" -> searchTitle(input);
+                    case "tag" -> searchTags(input);
+                }
+                pickEntry(input);
+                printSortMenu();
+                choice = input.nextLine();
+            }
+        } else {
+            System.out.println("No entries found");
         }
+
     }
 
 
     static void allEntries() {
-        for (DiaryEntry value: entryMap.values()) {
-            System.out.println(value.getTitle());
+        for (int key: entryMap.keySet()) {
+            DiaryEntry entry = entryMap.get(key);
+            System.out.println(key + ": "+entry.getTitle());
 
         }
     }
 
     static void searchTitle(Scanner input) {
         System.out.println("What title do you want to search by: ");
+        String inputTitle = input.nextLine();
         for (DiaryEntry value: entryMap.values()) {
-            if (value.getTitle().contains(input.nextLine())) {
+            if (value.getTitle().contains(inputTitle)) {
                 System.out.println(value.getTitle());
+            }
+        }
+    }
+
+    static void searchTags(Scanner input) {
+        System.out.println("What tag do you want to search by: ");
+        String tag = input.nextLine();
+        for (int key: entryMap.keySet()) {
+            DiaryEntry entryValues = entryMap.get(key);
+            if (entryValues.getTags().contains(tag)) {
+                System.out.println(key + ": " + entryValues.getTitle());
             }
         }
     }
@@ -70,6 +90,24 @@ public class DiaryStorage {
         System.out.println("all: print all entries");
         System.out.println("title: search for a title");
         System.out.println("tag: search by tags");
+
+    }
+
+
+    static void pickEntry(Scanner input) {
+        int key;
+        try {
+            key = input.nextInt();
+            if (entryMap.containsKey(key)) {
+                DiaryEntry entry = entryMap.get(key);
+                entry.getContent();
+                entry.editEntry(input);
+            } else {
+                System.out.println("Not a valid entry...");
+            }
+        } catch (Exception e) {
+            System.out.println("NaN");
+        }
 
     }
 
