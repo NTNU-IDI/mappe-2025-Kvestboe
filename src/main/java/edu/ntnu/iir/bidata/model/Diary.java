@@ -1,14 +1,12 @@
 package edu.ntnu.iir.bidata.model;
 
-import edu.ntnu.iir.bidata.storage.DiaryStorage;
 import edu.ntnu.iir.bidata.utils.Date;
 import edu.ntnu.iir.bidata.utils.Format;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 
-public class DiaryEntry {
+public class Diary {
     // hold entry data, date, food, tags, content
     // communicates with ui and storage
     // part that gets displayed, edited, saved by other programs in the project
@@ -21,7 +19,7 @@ public class DiaryEntry {
     static Format formatter = new Format();
 
     // diary entry without custom date
-    public DiaryEntry(String inputTitle, ArrayList<String> inputTags, String inputContent) {
+    public Diary(String inputTitle, ArrayList<String> inputTags, String inputContent) {
         title = inputTitle;
         tags = inputTags;
         content = inputContent;

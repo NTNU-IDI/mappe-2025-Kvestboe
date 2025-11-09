@@ -2,21 +2,21 @@
 package edu.ntnu.iir.bidata.storage;
 
 
-import edu.ntnu.iir.bidata.model.DiaryEntry;
+import edu.ntnu.iir.bidata.model.Diary;
 import edu.ntnu.iir.bidata.utils.Format;
 
 import java.util.*;
 
 
 
-public class DiaryStorage {
+public class DiaryManager {
     // will handle storing data to json file
     // loading which diaries is related to user
     // handle sorting and filtering entries
     // will handle diary entries from model/Diary entry
     Format formatter = new Format();
 
-    private static HashMap<Integer, DiaryEntry> entryMap = new HashMap<>();
+    private static HashMap<Integer, Diary> entryMap = new HashMap<>();
     private int entryId = 0;
 
     // method for adding entry to storage
@@ -27,7 +27,7 @@ public class DiaryStorage {
         ArrayList<String> tags = formatter.formatTags(input.nextLine());
         System.out.println("Write the content of the entry:");
         String content = input.nextLine();
-        DiaryEntry entry = new DiaryEntry(title, tags, content);
+        Diary entry = new Diary(title, tags, content);
         entryMap.put(entryId, entry);
 
         entry.editEntry(input);
@@ -58,7 +58,7 @@ public class DiaryStorage {
 
     static void allEntries() {
         for (int key: entryMap.keySet()) {
-            DiaryEntry entry = entryMap.get(key);
+            Diary entry = entryMap.get(key);
             System.out.println(key + ": "+entry.getTitle());
 
         }
@@ -67,7 +67,7 @@ public class DiaryStorage {
     static void searchTitle(Scanner input) {
         System.out.println("What title do you want to search by: ");
         String inputTitle = input.nextLine();
-        for (DiaryEntry value: entryMap.values()) {
+        for (Diary value: entryMap.values()) {
             if (value.getTitle().contains(inputTitle)) {
                 System.out.println(value.getTitle());
             }
@@ -78,7 +78,7 @@ public class DiaryStorage {
         System.out.println("What tag do you want to search by: ");
         String tag = input.nextLine();
         for (int key: entryMap.keySet()) {
-            DiaryEntry entryValues = entryMap.get(key);
+            Diary entryValues = entryMap.get(key);
             if (entryValues.getTags().contains(tag)) {
                 System.out.println(key + ": " + entryValues.getTitle());
             }
@@ -100,7 +100,7 @@ public class DiaryStorage {
         try {
             key = input.nextInt();
             if (entryMap.containsKey(key)) {
-                DiaryEntry entry = entryMap.get(key);
+                Diary entry = entryMap.get(key);
                 entry.getContent();
                 entry.editEntry(input);
             } else {

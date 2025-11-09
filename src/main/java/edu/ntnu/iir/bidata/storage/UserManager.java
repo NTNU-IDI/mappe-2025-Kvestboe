@@ -28,11 +28,9 @@ public class UserManager {
     }
 
     // method for creating a new user, which also saves it
-    public User addUser(Scanner input) {
-        System.out.print("What is your name: ");
-        User author = new User(input.nextLine());
-        System.out.println("Hello, " +  author.getName() + "!");
-        userMap.put(author.getName(), author);
-        return author;
+    public void addUser(String name) {
+        User user = new User(name);
+        userMap.put(name, user);
+
     }
 }
