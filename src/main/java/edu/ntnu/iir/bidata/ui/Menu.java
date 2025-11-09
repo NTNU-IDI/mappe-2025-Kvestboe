@@ -1,5 +1,6 @@
 package edu.ntnu.iir.bidata.ui;
 
+import edu.ntnu.iir.bidata.model.User;
 import edu.ntnu.iir.bidata.storage.DiaryManager;
 import edu.ntnu.iir.bidata.storage.UserManager;
 
@@ -54,6 +55,8 @@ public class Menu {
 
     IO io = new IO();
 
+    User user =
+
     public void initialize() {
 
     }
@@ -70,7 +73,7 @@ public class Menu {
 
                 case "prior" -> io.priorDiaries();
 
-                case "user" -> io.userSettings();
+                case "user" -> io.userSettings(userManager);
 
                 case "exit" -> runProgram = false;
             }

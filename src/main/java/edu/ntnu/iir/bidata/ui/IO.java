@@ -1,5 +1,6 @@
 package edu.ntnu.iir.bidata.ui;
 
+import edu.ntnu.iir.bidata.model.User;
 import edu.ntnu.iir.bidata.storage.UserManager;
 
 import java.util.ArrayList;
@@ -33,15 +34,19 @@ public class IO {
     }
 
     // this section will handle the user
-    public void userSettings(UserManager userManager) {
+    public User userSettings(UserManager userManager) {
         boolean running = true;
 
         while (running) {
             String choice = userMenu(userManager);
             switch (choice) {
-                case
+                case "new" -> addUser(userManager);
+                case "none" -> running = false;
+                default -> pickUser(userManager, choice);
             }
-       }
+        }
+
+
 
     }
 
@@ -59,6 +64,14 @@ public class IO {
         System.out.println("What is your name");
         String name = input.nextLine();
         userManager.addUser(name);
+    }
+
+    public User pickUser(UserManager userManager, String name) {
+        if (userManager.getUsers().contains(name)) {
+            return userManager.getUser(name);
+        } else {
+            return userSettings(userManager);
+        }
     }
 
 }
