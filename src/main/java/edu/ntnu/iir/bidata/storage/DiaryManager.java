@@ -19,20 +19,31 @@ public class DiaryManager {
     private static HashMap<Integer, Diary> entryMap = new HashMap<>();
     private int entryId = 0;
 
-    // method for adding entry to storage
-    public void addEntry(Scanner input) {
-        System.out.print("Write in a title: ");
-        String title = input.nextLine();
-        System.out.print("Write in tags (space between different tags): ");
-        ArrayList<String> tags = formatter.formatTags(input.nextLine());
-        System.out.println("Write the content of the entry:");
-        String content = input.nextLine();
-        Diary entry = new Diary(title, tags, content);
-        entryMap.put(entryId, entry);
-
-        entry.editEntry(input);
+    public int addDiary(Diary diary) {
+        entryMap.put(entryId, diary);
         entryId++;
+        return entryId-1;
     }
+
+    public Diary getDiary(int entryID) {
+        return entryMap.get(entryID);
+    }
+
+    // old method
+//    // method for adding entry to storage
+//    public void addEntry(Scanner input) {
+//        System.out.print("Write in a title: ");
+//        String title = input.nextLine();
+//        System.out.print("Write in tags (space between different tags): ");
+//        ArrayList<String> tags = formatter.formatTags(input.nextLine());
+//        System.out.println("Write the content of the entry:");
+//        String content = input.nextLine();
+//        Diary entry = new Diary(title, tags, content);
+//        entryMap.put(entryId, entry);
+//
+//        entry.editEntry(input);
+//        entryId++;
+//    }
 
     public void priorEntries(Scanner input) {
         if (entryId != 0) {

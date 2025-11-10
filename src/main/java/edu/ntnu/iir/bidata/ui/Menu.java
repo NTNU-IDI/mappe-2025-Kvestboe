@@ -34,18 +34,18 @@ public class Menu {
         System.out.println("exit: exit.");
     }
 
-    // old
-    // print entry options
-    public void addEntry(Scanner input, DiaryManager entries) {
-        entries.addEntry(input);
-    }
-
-    //old
-    // option for selecting prior entries
-    public void priorEntries(Scanner input, DiaryManager entries) {
-        entries.priorEntries(input);
-    }
-
+//    // old
+//    // print entry options
+//    public void addEntry(Scanner input, DiaryManager entries) {
+//        entries.addEntry(input);
+//    }
+//
+//    //old
+//    // option for selecting prior entries
+//    public void priorEntries(Scanner input, DiaryManager entries) {
+//        entries.priorEntries(input);
+//    }
+//
 
     // this is part of the new code
     Scanner input = new Scanner(System.in);
@@ -69,7 +69,7 @@ public class Menu {
             String menuChoice = input.nextLine();
 
             switch(menuChoice) {
-                case "new" -> io.newDiary();
+                case "new" -> io.newDiary(diaryManager);
 
                 case "prior" -> io.priorDiaries();
 

@@ -47,12 +47,23 @@ public class Diary {
     public ArrayList<String> getTags() {
         return tags;
     }
+    public String getTagsString() {
+        String tagString = "";
+        for (String tag: tags) {
+            tagString += tag + " ";
+        }
+        return tagString;
+    }
     public void setTags(ArrayList<String> inputTags) {
         tags = inputTags;
     }
 
-    public void getContent() {
-        System.out.println(content);
+    public String getContent() {
+        return content;
+    }
+
+    public String getDateString() {
+        return date.toString();
     }
 
     // loop for edit options
@@ -104,7 +115,7 @@ public class Diary {
 
     // method and menu to edit date
     public void editDate(Scanner input) {
-        System.out.println("Previous date: " + date.getDate());
+        System.out.println("Previous date: " + date.toString());
         System.out.println("What do you want to change the date to: ");
         System.out.print("Day of month: ");
         int day = input.nextInt();

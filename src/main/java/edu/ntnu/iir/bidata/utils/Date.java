@@ -22,7 +22,7 @@ public class Date {
 
     }
 
-    public String getDate() {
+    public String toString() {
         return day+"/"+month+"/"+year;
     }
 }
