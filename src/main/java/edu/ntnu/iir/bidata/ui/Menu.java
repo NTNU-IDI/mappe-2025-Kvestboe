@@ -55,7 +55,7 @@ public class Menu {
 
     IO io = new IO();
 
-    User user =
+    User user = io.addUser(userManager);
 
     public void initialize() {
 
@@ -73,10 +73,16 @@ public class Menu {
 
                 case "prior" -> io.priorDiaries();
 
-                case "user" -> io.userSettings(userManager);
+                case "user" -> checkUser();
 
                 case "exit" -> runProgram = false;
             }
+        }
+    }
+    private void checkUser() {
+        User newUser = io.userSettings(userManager, user);
+        if (newUser != null) {
+            user = newUser;
         }
     }
 }

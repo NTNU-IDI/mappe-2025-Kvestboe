@@ -13,9 +13,9 @@ public class Format {
         }
         return tags;
     }
-    // har en feil med formatering, returnerer ikke som forventet.
-    public static void main(String[] args) {
-        Format test = new Format();
-        System.out.println(test.formatTags("dette er en test"));
-    }
+//    // har en feil med formatering, returnerer ikke som forventet.
+//    public static void main(String[] args) {
+//        Format test = new Format();
+//        System.out.println(test.formatTags("dette er en test"));
+//    }
 }
