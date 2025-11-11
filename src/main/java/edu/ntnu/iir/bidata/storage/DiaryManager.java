@@ -10,7 +10,6 @@ import java.util.*;
 
 
 public class DiaryManager {
-    // will handle storing data to json file
     // loading which diaries is related to user
     // handle sorting and filtering entries
     // will handle diary entries from model/Diary entry

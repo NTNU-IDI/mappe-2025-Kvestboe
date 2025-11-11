@@ -43,7 +43,7 @@ public class IO {
         while (running) {
             String choice = editMenu(diary);
             switch (choice) {
-                case "title" -> diary.setTitle(input.nextLine());
+                case "title" -> editTitle(diary);
                 case "tags" -> editTags(diary);
                 case "none" -> running = false;
             }
@@ -63,6 +63,21 @@ public class IO {
 
     }
 
+    private void editTitle(Diary diary) {
+        System.out.println("Do you wish to change the title to?");
+        System.out.println("current title: " + diary.getTitle());
+        System.out.println("none: to not change the title, and go back");
+        System.out.print("changing title to: ");
+        String newTitle = input.nextLine();
+        if (!newTitle.equals("none")) {
+            diary.setTitle(newTitle);
+            System.out.println("changed title");
+        } else {
+            System.out.println("did not change the title")
+        }
+
+    }
+
     private void editTags(Diary diary) {
         System.out.println("What do you wish to do with the tags:");
         System.out.println("add: add new tags");
@@ -75,6 +90,10 @@ public class IO {
             case "remove" -> removeTags(diary);
             default -> System.out.println("No option matches, " +choice+ ", going back");
         }
+
+    }
+
+    private void editDate(Diary diary) {
 
     }
 
