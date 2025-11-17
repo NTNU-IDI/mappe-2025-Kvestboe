@@ -6,6 +6,7 @@ import edu.ntnu.iir.bidata.storage.DiaryManager;
 import edu.ntnu.iir.bidata.storage.UserManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class IO {
@@ -19,13 +20,13 @@ public class IO {
 
     // this section will handle adding a new diary to the manager
     public void newDiary(DiaryManager diaryManager) {
-        System.out.print("Write in a title:");
+        System.out.print("Write in a title: ");
         String title = input.nextLine();
 
         System.out.print("Write in a tags (with a space between): ");
         ArrayList<String> tags = formatTags(input.nextLine());
 
-        System.out.println("Write in the content of the diary:");
+        System.out.println("Write in the content of the diary: ");
         String content = inputContent();
 
         Diary diary = new Diary(title, tags, content);
@@ -45,6 +46,7 @@ public class IO {
             switch (choice) {
                 case "title" -> editTitle(diary);
                 case "tags" -> editTags(diary);
+                case "date" -> editDate(diary);
                 case "none" -> running = false;
             }
         }
@@ -73,7 +75,7 @@ public class IO {
             diary.setTitle(newTitle);
             System.out.println("changed title");
         } else {
-            System.out.println("did not change the title")
+            System.out.println("did not change the title");
         }
 
     }
@@ -94,6 +96,27 @@ public class IO {
     }
 
     private void editDate(Diary diary) {
+        System.out.println("current date: " + diary.getDateString());
+        System.out.println("write anything, not a number, to go back");
+        try {
+            System.out.print("day of year: ");
+            int day = input.nextInt();
+            System.out.print("month: ");
+            input.nextLine();
+            int month = input.nextInt();
+            System.out.print("year: ");
+            input.nextLine();
+            int year = input.nextInt();
+            input.nextLine();
+            if ((0<day&&day<=31)&&(0<month&&month<=12)&&(0<year)) {
+                diary.setDate(day, month, year);
+            } else {
+                System.out.println("not a valid date");
+            }
+        } catch (Exception e) {
+            System.out.println("not a number");
+            input.nextLine();
+        }
 
     }
 
@@ -128,7 +151,67 @@ public class IO {
 
     // this section is for viewing prior diaries
     // there will also be methods for sorting
-    public void priorDiaries() {
+    public void priorDiaries(DiaryManager diaryManager) {
+
+        boolean running = true;
+        while (running) {
+            String choice = priorDiariesMenu();
+            switch (choice) {
+                case "all" -> getAllDiaries(diaryManager);
+                case "title" -> getDiariesTitle(diaryManager);
+                case "tag" -> getDiariesTags(diaryManager);
+                case "none" -> running = false;
+            }
+        }
+
+    }
+
+
+    private void getAllDiaries(DiaryManager diaryManager) {
+        HashMap<Integer, Diary> diaries = diaryManager.allDiaries();
+
+        for (int key: diaries.keySet()) {
+            Diary diary = diaries.get(key);
+            System.out.println(key + ": " + diary.getTitle());
+        }
+
+    }
+
+    private void getDiariesTitle(DiaryManager diaryManager) {
+        System.out.print("Write in the title you want to search by: ");
+        String title = input.nextLine();
+        HashMap<Integer, Diary> diaries = diaryManager.searchTitle(title);
+        for (int key: diaries.keySet()) {
+            Diary diary = diaries.get(key);
+            System.out.println(key + ": " + diary.getTitle());
+        }
+
+    }
+
+    private void getDiariesTags(DiaryManager diaryManager) {
+        System.out.print("Write in the tag you want to search by: ");
+        String tag = input.nextLine();
+        HashMap<Integer, Diary> diaries = diaryManager.searchTag(tag);
+        for (int key: diaries.keySet()) {
+            Diary diary = diaries.get(key);
+            System.out.println(key + ": " + diary.getTitle());
+        }
+    }
+
+    private String priorDiariesMenu() {
+        String choice = "";
+        System.out.println("What do you wish to search the diaries by?");
+        System.out.println("all: print all entries");
+        System.out.println("title: search for a title");
+        System.out.println("tag: search by tags");
+        System.out.println("none: exit sorting menu");
+
+        try {
+            choice = input.nextLine();
+        } catch (Exception e) {
+            System.out.println("not a valid choice");
+        }
+        return choice;
 
     }
 

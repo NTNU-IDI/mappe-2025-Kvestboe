@@ -71,7 +71,7 @@ public class Menu {
             switch(menuChoice) {
                 case "new" -> io.newDiary(diaryManager);
 
-                case "prior" -> io.priorDiaries();
+                case "prior" -> io.priorDiaries(diaryManager);
 
                 case "user" -> checkUser();
 
