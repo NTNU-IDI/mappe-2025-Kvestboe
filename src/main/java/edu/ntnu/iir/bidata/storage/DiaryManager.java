@@ -3,7 +3,6 @@ package edu.ntnu.iir.bidata.storage;
 
 
 import edu.ntnu.iir.bidata.model.Diary;
-import edu.ntnu.iir.bidata.utils.Format;
 
 import java.util.*;
 
@@ -13,7 +12,6 @@ public class DiaryManager {
     // loading which diaries is related to user
     // handle sorting and filtering entries
     // will handle diary entries from model/Diary entry
-    Format formatter = new Format();
 
     private static HashMap<Integer, Diary> entryMap = new HashMap<>();
     private int entryId = 0;

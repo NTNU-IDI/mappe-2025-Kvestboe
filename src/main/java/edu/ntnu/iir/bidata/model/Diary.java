@@ -1,10 +1,8 @@
 package edu.ntnu.iir.bidata.model;
 
 import edu.ntnu.iir.bidata.utils.Date;
-import edu.ntnu.iir.bidata.utils.Format;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Represents a single diary entry object.
