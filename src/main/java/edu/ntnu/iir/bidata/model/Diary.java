@@ -46,6 +46,7 @@ public class Diary {
     public ArrayList<String> getTags() {
         return tags;
     }
+
     public String getTagsString() {
         String tagString = "";
         for (String tag: tags) {
@@ -53,6 +54,7 @@ public class Diary {
         }
         return tagString;
     }
+
     public void setTags(ArrayList<String> inputTags) {
         tags = inputTags;
     }
@@ -64,6 +66,7 @@ public class Diary {
     public String getDateString() {
         return date.toString();
     }
+
     public void setDate(int day, int month, int year) {
         date = new Date(day, month, year);
     }

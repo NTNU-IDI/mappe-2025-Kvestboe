@@ -162,8 +162,24 @@ public class IO {
                 case "tag" -> getDiariesTags(diaryManager);
                 case "none" -> running = false;
             }
+            if (running) {
+                Diary diary = pickDiary(diaryManager);
+                editDiary(diary);
+            }
         }
 
+    }
+
+    private Diary pickDiary(DiaryManager diaryManager) {
+        System.out.print("Write in the number of the diary you want to pick:");
+        try{
+            int key = input.nextInt();
+            input.nextLine();
+            return diaryManager.getDiary(key);
+        } catch (Exception e) {
+            System.out.println("not an option");
+            return null;
+        }
     }
 
 
