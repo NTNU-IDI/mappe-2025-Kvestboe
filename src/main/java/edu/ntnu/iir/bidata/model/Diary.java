@@ -17,7 +17,7 @@ public class Diary {
 
     private String title;
     private ArrayList<String> tags;
-    final private String content;
+    private String content;
     private Date date;
 
 
@@ -61,6 +61,10 @@ public class Diary {
 
     public String getContent() {
         return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getDateString() {

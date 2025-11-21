@@ -47,6 +47,7 @@ public class IO {
                 case "title" -> editTitle(diary);
                 case "tags" -> editTags(diary);
                 case "date" -> editDate(diary);
+                case "content" -> editContent(diary);
                 case "none" -> running = false;
             }
         }
@@ -120,6 +121,44 @@ public class IO {
 
     }
 
+    private void editContent(Diary diary) {
+        boolean running = true;
+        while (running) {
+            String choice = contentMenu();
+            switch (choice) {
+                case "read" -> System.out.println(diary.getContent());
+                case "write" -> writeContent(diary);
+                case "add" -> addContent(diary);
+                case "none" -> running = false;
+
+
+            }
+        }
+
+    }
+
+    private String contentMenu() {
+        System.out.println("What do you wish to do:");
+        System.out.println("read: read the content of the diary");
+        System.out.println("write: rewrite the content of the diary");
+        System.out.println("add: add to the already existing content");
+        System.out.println("none: exit the content menu");
+
+        return input.nextLine();
+    }
+
+    private void writeContent(Diary diary) {
+        String content = inputContent();
+        diary.setContent(content);
+
+    }
+
+    private void addContent(Diary diary) {
+        String content = diary.getContent();
+        content += inputContent();
+        diary.setContent(content);
+    }
+
     private void addTags(Diary diary) {
         System.out.println("Write the tags you wish to add (space between):");
         ArrayList<String> newTags = formatTags(input.nextLine());
@@ -154,6 +193,7 @@ public class IO {
     public void priorDiaries(DiaryManager diaryManager) {
 
         boolean running = true;
+        boolean valid = true;
         while (running) {
             String choice = priorDiariesMenu();
             switch (choice) {
@@ -161,10 +201,15 @@ public class IO {
                 case "title" -> getDiariesTitle(diaryManager);
                 case "tag" -> getDiariesTags(diaryManager);
                 case "none" -> running = false;
+                default -> valid = false;
             }
-            if (running) {
+            if (running && valid) {
                 Diary diary = pickDiary(diaryManager);
-                editDiary(diary);
+                if (diary != null) {
+                    editDiary(diary);
+                } else {
+                    System.out.println("no existing diary was chosen");
+                }
             }
         }
 
