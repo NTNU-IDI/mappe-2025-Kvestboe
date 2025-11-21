@@ -100,8 +100,9 @@ public class IO {
         System.out.println("current date: " + diary.getDateString());
         System.out.println("write anything, not a number, to go back");
         try {
-            System.out.print("day of year: ");
+            System.out.print("day of month: ");
             int day = input.nextInt();
+            input.nextLine();
             System.out.print("month: ");
             input.nextLine();
             int month = input.nextInt();
