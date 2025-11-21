@@ -336,7 +336,7 @@ public class IO {
     }
 
     private String inputContent() {
-        String content = "";
+        StringBuilder content = new StringBuilder();
         boolean done = false;
 
         System.out.println("Write done, to stop content loop.");
@@ -347,11 +347,11 @@ public class IO {
                 done = true;
 
             } else {
-                content += line + "\n";
+                content.append(line).append("\n");
 
             }
         }
-        return content;
+        return content.toString();
     }
 
 }

@@ -46,11 +46,11 @@ public class Diary {
     }
 
     public String getTagsString() {
-        String tagString = "";
+        StringBuilder tagString = new StringBuilder();
         for (String tag: tags) {
-            tagString += tag + " ";
+            tagString.append(tag).append(" ");
         }
-        return tagString;
+        return tagString.toString();
     }
 
     public void setTags(ArrayList<String> inputTags) {

@@ -13,7 +13,7 @@ public class DiaryManager {
     // handle sorting and filtering entries
     // will handle diary entries from model/Diary entry
 
-    private static HashMap<Integer, Diary> entryMap = new HashMap<>();
+    private final HashMap<Integer, Diary> entryMap = new HashMap<>();
     private int entryId = 0;
 
     public int addDiary(Diary diary) {

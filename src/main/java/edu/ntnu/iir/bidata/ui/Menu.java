@@ -4,7 +4,6 @@ import edu.ntnu.iir.bidata.model.User;
 import edu.ntnu.iir.bidata.storage.DiaryManager;
 import edu.ntnu.iir.bidata.storage.UserManager;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
@@ -12,17 +11,6 @@ public class Menu {
     this class is mostly output, and creating the objects of each class needed
     this is the class that will communicate with the Main class
      */
-
-    // old
-    // print user options
-    public void userMenu(UserManager userManager) {
-        ArrayList<String> userNames = userManager.getUsers();
-        System.out.println("Change user:");
-        for (String name: userNames) {
-            System.out.println(name+".");
-        }
-        System.out.println("new: new user.");
-    }
 
     // need to rework
     // print menu options
@@ -33,19 +21,6 @@ public class Menu {
         System.out.println("user: change user.");
         System.out.println("exit: exit.");
     }
-
-//    // old
-//    // print entry options
-//    public void addEntry(Scanner input, DiaryManager entries) {
-//        entries.addEntry(input);
-//    }
-//
-//    //old
-//    // option for selecting prior entries
-//    public void priorEntries(Scanner input, DiaryManager entries) {
-//        entries.priorEntries(input);
-//    }
-//
 
     // this is part of the new code
     Scanner input = new Scanner(System.in);

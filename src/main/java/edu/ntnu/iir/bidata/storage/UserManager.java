@@ -3,7 +3,6 @@ package edu.ntnu.iir.bidata.storage;
 import edu.ntnu.iir.bidata.model.User;
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class UserManager {
     // load and save list of registered users
@@ -11,7 +10,7 @@ public class UserManager {
     // locate user's personal data folder
 
     // create list for users to be saved on
-    private HashMap<String, User> userMap =  new HashMap<>();
+    private final HashMap<String, User> userMap =  new HashMap<>();
 
     // method for getting a list of the usernames
     public ArrayList<String> getUsers() {
