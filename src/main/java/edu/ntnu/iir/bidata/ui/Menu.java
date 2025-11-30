@@ -1,8 +1,8 @@
 package edu.ntnu.iir.bidata.ui;
 
-import edu.ntnu.iir.bidata.model.User;
-import edu.ntnu.iir.bidata.storage.DiaryManager;
-import edu.ntnu.iir.bidata.storage.UserManager;
+import edu.ntnu.iir.bidata.model.Author;
+import edu.ntnu.iir.bidata.storage.EntryManager;
+import edu.ntnu.iir.bidata.storage.AuthorManager;
 
 import java.util.Scanner;
 
@@ -25,12 +25,12 @@ public class Menu {
     // this is part of the new code
     Scanner input = new Scanner(System.in);
 
-    UserManager userManager = new UserManager();
-    DiaryManager diaryManager = new DiaryManager();
+    AuthorManager authorManager = new AuthorManager();
+    EntryManager entryManager = new EntryManager();
 
     IO io = new IO();
 
-    User user = io.addUser(userManager);
+    Author author = io.addUser(authorManager);
 
     public void initialize() {
 
@@ -44,9 +44,9 @@ public class Menu {
             String menuChoice = input.nextLine();
 
             switch(menuChoice) {
-                case "new" -> io.newDiary(diaryManager);
+                case "new" -> io.newDiary(entryManager, author, authorManager);
 
-                case "prior" -> io.priorDiaries(diaryManager);
+                case "prior" -> io.priorDiaries(entryManager, authorManager);
 
                 case "user" -> checkUser();
 
@@ -55,9 +55,9 @@ public class Menu {
         }
     }
     private void checkUser() {
-        User newUser = io.userSettings(userManager, user);
-        if (newUser != null) {
-            user = newUser;
+        Author newAuthor = io.userSettings(authorManager, author);
+        if (newAuthor != null) {
+            author = newAuthor;
         }
     }
 }

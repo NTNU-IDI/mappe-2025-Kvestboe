@@ -8,11 +8,12 @@ import java.util.ArrayList;
  * Represents a single diary entry object.
  */
 
-public class Diary {
+public class Entry {
     // hold entry data, date, food, tags, content
     // communicates with ui and storage
     // part that gets displayed, edited, saved by other programs in the project
 
+    private Author author;
     private String title;
     private ArrayList<String> tags;
     private String content;
@@ -24,7 +25,8 @@ public class Diary {
      * @param tags sets list of tags for entry
      * @param content set the content for the entry
      */
-    public Diary(String title, ArrayList<String> tags, String content) {
+    public Entry(Author author, String title, ArrayList<String> tags, String content) {
+        this.author = author;
         this.title = title;
         this.tags = tags;
         this.content = content;
@@ -32,6 +34,14 @@ public class Diary {
 
     }
 
+
+    public Author getUser() {
+        return author;
+    }
+
+    public void setUser(Author author) {
+        this.author = author;
+    }
 
     public String getTitle() {
         return title;
