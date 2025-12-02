@@ -75,6 +75,10 @@ public class Entry {
         this.content = content;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
     public String getDateString() {
         return date.toString();
     }

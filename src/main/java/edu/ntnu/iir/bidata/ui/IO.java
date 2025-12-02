@@ -4,6 +4,7 @@ import edu.ntnu.iir.bidata.model.Author;
 import edu.ntnu.iir.bidata.model.Entry;
 import edu.ntnu.iir.bidata.storage.AuthorManager;
 import edu.ntnu.iir.bidata.storage.EntryManager;
+import edu.ntnu.iir.bidata.utils.Date;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -234,6 +235,8 @@ public class IO {
                 case "title" -> entry = getDiariesTitle(entryManager);
                 case "tag" -> entry = getDiariesTags(entryManager);
                 case "author" -> entry = getEntriesAuthor(entryManager, author, authorManager);
+                case "date" -> entry =  getEntriesDate(entryManager);
+                case "period" -> entry = getEntriesPeriod(entryManager);
                 case "none" -> running = false;
                 default -> valid = false;
             }
@@ -293,6 +296,7 @@ public class IO {
         System.out.println("title: search for a title");
         System.out.println("tag: search by tags");
         System.out.println("author: search for authors");
+        System.out.println("date: search by a date");
         System.out.println("none: exit sorting menu");
 
         try {
@@ -302,6 +306,29 @@ public class IO {
         }
         return choice;
 
+    }
+
+    private Entry getEntriesDate(EntryManager entryManager) {
+        Date date = makeDate();
+        HashMap<Integer, Entry> entries = entryManager.searchDate(date);
+        if (entries.isEmpty()) {
+            System.out.println("No entries found");
+            return null;
+        } else {
+            return printEntries(entries, entryManager);
+        }
+    }
+
+    private Entry getEntriesPeriod(EntryManager entryManager) {
+        Date date1 = makeDate();
+        Date date2 = makeDate();
+        HashMap<Integer, Entry> entries = entryManager.searchPeriod(date1, date2);
+        if (entries.isEmpty()) {
+            System.out.println("No entries found");
+            return null;
+        } else {
+            return printEntries(entries, entryManager);
+        }
     }
 
     // this section will handle the user
@@ -349,6 +376,27 @@ public class IO {
     }
 
     // this section has some functions that the class methods rely on
+
+    private Date makeDate() {
+        Date date = null;
+        try {
+            System.out.println("Write in the date");
+            System.out.print("day: ");
+            int day = input.nextInt();
+            input.nextLine();
+            System.out.print("month: ");
+            int month = input.nextInt();
+            input.nextLine();
+            System.out.print("year: ");
+            int year = input.nextInt();
+            input.nextLine();
+            date = new Date(day, month, year);
+        } catch (Exception e) {
+            System.out.println("not a number.");
+        }
+        return date;
+
+    }
 
     private Entry printEntries(HashMap<Integer, Entry> entries, EntryManager entryManager) {
         if (!entries.isEmpty()) {
