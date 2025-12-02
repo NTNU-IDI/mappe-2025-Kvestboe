@@ -15,11 +15,20 @@ public class Menu {
     // need to rework
     // print menu options
     public void showMenu() {
-        System.out.println("Select your option:");
-        System.out.println("new: new entry.");
-        System.out.println("prior: view prior entries.");
-        System.out.println("user: change user.");
-        System.out.println("exit: exit.");
+        if (entryManager.allDiaries().isEmpty()) {
+            System.out.println("Select your option:");
+            System.out.println("new: new entry.");
+            System.out.println("author: change author.");
+            System.out.println("exit: exit.");
+
+        } else {
+            System.out.println("Select your option:");
+            System.out.println("new: new entry.");
+            System.out.println("prior: view prior entries.");
+            System.out.println("author: change author.");
+            System.out.println("exit: exit.");
+
+        }
     }
 
     // this is part of the new code
@@ -46,9 +55,9 @@ public class Menu {
             switch(menuChoice) {
                 case "new" -> io.newDiary(entryManager, author, authorManager);
 
-                case "prior" -> io.priorDiaries(entryManager, authorManager);
+                case "prior" -> io.priorDiaries(entryManager, author, authorManager);
 
-                case "user" -> checkUser();
+                case "author" -> checkUser();
 
                 case "exit" -> runProgram = false;
             }

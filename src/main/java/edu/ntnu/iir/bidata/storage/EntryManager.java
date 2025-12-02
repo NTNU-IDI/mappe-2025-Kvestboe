@@ -16,10 +16,18 @@ public class EntryManager {
     private final HashMap<Integer, Entry> entryMap = new HashMap<>();
     private int entryId = 0;
 
-    public int addDiary(Entry entry) {
+    public int addEntry(Entry entry) {
         entryMap.put(entryId, entry);
         entryId++;
         return entryId-1;
+    }
+
+    public void deleteEntry(Entry entry) {
+       for (int key: entryMap.keySet()) {
+           if (entryMap.get(key) == entry) {
+               entryMap.remove(key);
+           }
+       }
     }
 
     public Entry getDiary(int entryID) {
@@ -52,6 +60,18 @@ public class EntryManager {
             }
         }
         return diaries;
+    }
+
+    public HashMap<Integer, Entry> searchAuthor(String author) {
+        HashMap<Integer, Entry> entries = new HashMap<>();
+        for (int key: entryMap.keySet()) {
+            Entry entry = entryMap.get(key);
+            String name = entry.getAuthor().getName();
+            if (author.equals(name)) {
+               entries.put(key, entry);
+            }
+        }
+        return entries;
     }
 
 

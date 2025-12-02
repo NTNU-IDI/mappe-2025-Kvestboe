@@ -35,11 +35,11 @@ public class Entry {
     }
 
 
-    public Author getUser() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setUser(Author author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 

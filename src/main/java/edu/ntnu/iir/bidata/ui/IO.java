@@ -30,15 +30,15 @@ public class IO {
         String content = inputContent();
 
         Entry diary = new Entry(author, title, tags, content);
-        int entry = entryManager.addDiary(diary);
+        int entry = entryManager.addEntry(diary);
 
-        editDiary(entryManager.getDiary(entry), authorManager);
+        editDiary(entryManager.getDiary(entry), authorManager, entryManager);
 
     }
 
     // this section will handle the editing behind the diaries
     // most of those functions are in the diary class, which is bad practice
-    public void editDiary(Entry entry, AuthorManager authorManager) {
+    public void editDiary(Entry entry, AuthorManager authorManager, EntryManager entryManager) {
         boolean running = true;
 
         while (running) {
@@ -49,6 +49,10 @@ public class IO {
                 case "tags" -> editTags(entry);
                 case "date" -> editDate(entry);
                 case "content" -> editContent(entry);
+                case "delete" -> {
+                    deleteEntry(entry, entryManager);
+                    running = false;
+                }
                 case "none" -> running = false;
             }
         }
@@ -57,21 +61,35 @@ public class IO {
 
     private String editMenu(Entry entry) {
         System.out.println("Is there anything you wish to edit?");
-        System.out.println("author: " + entry.getUser().getName());
+        System.out.println("author: " + entry.getAuthor().getName());
         System.out.println("title: " + entry.getTitle());
         System.out.println("tags: " + entry.getTagsString());
         System.out.println("date: " + entry.getDateString());
         System.out.println("content: view the content or edit it");
+        System.out.println("delete: delete the diary entry");
         System.out.println("none: go back");
 
         return input.nextLine();
 
     }
 
+    private void deleteEntry(Entry entry, EntryManager entryManager) {
+        System.out.println("Are you sure you want to delete this entry?");
+        System.out.println("yes: delete entry");
+        System.out.println("anything: go back");
+        String choice = input.nextLine();
+        if (choice.equals("yes")) {
+            entryManager.deleteEntry(entry);
+        } else {
+            System.out.println("Went back.");
+        }
+
+    }
+
     private void editUser(Entry entry, AuthorManager authorManager) {
-        Author author = userSettings(authorManager, entry.getUser());
+        Author author = userSettings(authorManager, entry.getAuthor());
         if (author != null) {
-            entry.setUser(author);
+            entry.setAuthor(author);
             System.out.println("Changed the author");
         } else {
             System.out.println("Did not change author.");
@@ -204,25 +222,24 @@ public class IO {
 
     // this section is for viewing prior diaries
     // there will also be methods for sorting
-    public void priorDiaries(EntryManager entryManager, AuthorManager authorManager) {
+    public void priorDiaries(EntryManager entryManager, Author author, AuthorManager authorManager) {
 
         boolean running = true;
         boolean valid = true;
         while (running) {
             String choice = priorDiariesMenu();
+            Entry entry = null;
             switch (choice) {
-                case "all" -> getAllDiaries(entryManager);
-                case "title" -> getDiariesTitle(entryManager);
-                case "tag" -> getDiariesTags(entryManager);
+                case "all" -> entry = getAllDiaries(entryManager);
+                case "title" -> entry = getDiariesTitle(entryManager);
+                case "tag" -> entry = getDiariesTags(entryManager);
+                case "author" -> entry = getEntriesAuthor(entryManager, author, authorManager);
                 case "none" -> running = false;
                 default -> valid = false;
             }
             if (running && valid) {
-                Entry entry = pickDiary(entryManager);
                 if (entry != null) {
-                    editDiary(entry, authorManager);
-                } else {
-                    System.out.println("no existing diary was chosen");
+                    editDiary(entry, authorManager, entryManager);
                 }
             }
         }
@@ -242,35 +259,31 @@ public class IO {
     }
 
 
-    private void getAllDiaries(EntryManager entryManager) {
-        HashMap<Integer, Entry> diaries = entryManager.allDiaries();
-
-        for (int key: diaries.keySet()) {
-            Entry entry = diaries.get(key);
-            System.out.println(key + ": " + entry.getTitle());
-        }
+    private Entry getAllDiaries(EntryManager entryManager) {
+        HashMap<Integer, Entry> entries = entryManager.allDiaries();
+        return printEntries(entries, entryManager);
 
     }
 
-    private void getDiariesTitle(EntryManager entryManager) {
+    private Entry getDiariesTitle(EntryManager entryManager) {
         System.out.print("Write in the title you want to search by: ");
         String title = input.nextLine();
-        HashMap<Integer, Entry> diaries = entryManager.searchTitle(title);
-        for (int key: diaries.keySet()) {
-            Entry entry = diaries.get(key);
-            System.out.println(key + ": " + entry.getTitle());
-        }
-
+        HashMap<Integer, Entry> entries = entryManager.searchTitle(title);
+        return printEntries(entries, entryManager);
     }
 
-    private void getDiariesTags(EntryManager entryManager) {
+    private Entry getDiariesTags(EntryManager entryManager) {
         System.out.print("Write in the tag you want to search by: ");
         String tag = input.nextLine();
-        HashMap<Integer, Entry> diaries = entryManager.searchTag(tag);
-        for (int key: diaries.keySet()) {
-            Entry entry = diaries.get(key);
-            System.out.println(key + ": " + entry.getTitle());
-        }
+        HashMap<Integer, Entry> entries = entryManager.searchTag(tag);
+        return printEntries(entries, entryManager);
+    }
+
+    private Entry getEntriesAuthor(EntryManager entryManager, Author author, AuthorManager authorManager) {
+        System.out.println("Choose the author you want to sort by.");
+        Author choice = userSettings(authorManager, author);
+        HashMap<Integer, Entry> entries = entryManager.searchAuthor(choice.getName());
+        return printEntries(entries, entryManager);
     }
 
     private String priorDiariesMenu() {
@@ -279,6 +292,7 @@ public class IO {
         System.out.println("all: print all entries");
         System.out.println("title: search for a title");
         System.out.println("tag: search by tags");
+        System.out.println("author: search for authors");
         System.out.println("none: exit sorting menu");
 
         try {
@@ -335,6 +349,19 @@ public class IO {
     }
 
     // this section has some functions that the class methods rely on
+
+    private Entry printEntries(HashMap<Integer, Entry> entries, EntryManager entryManager) {
+        if (!entries.isEmpty()) {
+            for (int key: entries.keySet()) {
+                Entry entry =  entries.get(key);
+                System.out.println(key + ": " + entry.getTitle());
+            }
+            return pickDiary(entryManager);
+        } else {
+            System.out.println("No entries found");
+            return null;
+        }
+    }
 
     private ArrayList<String> formatTags(String inputTags) {
         ArrayList<String> tags = new ArrayList<>();
