@@ -6,6 +6,9 @@ import edu.ntnu.iir.bidata.storage.AuthorManager;
 
 import java.util.Scanner;
 
+/**
+ * This class represents the different functions of the diary.
+ */
 public class Menu {
     /*
     this class is mostly output, and creating the objects of each class needed
@@ -14,6 +17,10 @@ public class Menu {
 
     // need to rework
     // print menu options
+
+    /**
+     * This method will print the main menu.
+     */
     public void showMenu() {
         if (entryManager.allDiaries().isEmpty()) {
             System.out.println("Select your option:");
@@ -40,17 +47,24 @@ public class Menu {
 
     IO io = null;
 
-
+    /**
+     * This method will initialize the diary,
+     * make objects of different classes.
+     */
     public void initialize() {
         input = new Scanner(System.in);
         authorManager = new AuthorManager();
         entryManager = new EntryManager();
 
         io = new IO();
-        author = io.addUser(authorManager);
+        author = io.addAuthor(authorManager);
 
     }
 
+    /**
+     * This method will start the diary program.
+     * Makes the flow of the program.
+     */
     public void start() {
 
         if (input != null || authorManager != null || entryManager != null || io != null || author != null) {
@@ -63,7 +77,7 @@ public class Menu {
                 switch(menuChoice) {
                     case "new" -> io.newDiary(entryManager, author, authorManager);
 
-                    case "prior" -> io.priorDiaries(entryManager, author, authorManager);
+                    case "prior" -> io.priorEntries(entryManager, author, authorManager);
 
                     case "author" -> checkUser();
 
@@ -76,8 +90,12 @@ public class Menu {
         }
 
     }
+
+    /**
+     * This method will check that the user is valid.
+     */
     private void checkUser() {
-        Author newAuthor = io.userSettings(authorManager, author);
+        Author newAuthor = io.authorSetting(authorManager, author);
         if (newAuthor != null) {
             author = newAuthor;
         }
