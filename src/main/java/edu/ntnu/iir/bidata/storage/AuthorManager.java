@@ -4,16 +4,22 @@ import edu.ntnu.iir.bidata.model.Author;
 import java.util.HashMap;
 import java.util.ArrayList;
 
+/**
+ * Represents a register of authors in the diary application.
+ */
 public class AuthorManager {
-    // load and save list of registered users
-    // add new users
-    // locate user's personal data folder
 
-    // create list for users to be saved on
+    /**
+     * The authors of the diary.
+     */
     private final HashMap<String, Author> authorMap =  new HashMap<>();
 
-    // method for getting a list of the usernames
-    public ArrayList<String> getUsers() {
+    /**
+     * Getter for the authors names in the diary.
+     *
+     * @return a list of author names
+     */
+    public ArrayList<String> getAuthors() {
         ArrayList<String> userNames = new ArrayList<>();
         for (Author author : authorMap.values()) {
             userNames.add(author.getName());
@@ -21,15 +27,24 @@ public class AuthorManager {
         return userNames;
     }
 
-    // method for getting specific user
-    public Author getUser(String name) {
+    /**
+     * Getter for a single author in the diary,
+     * based on their name.
+     *
+     * @param name name of the author
+     * @return an Author object
+     */
+    public Author getAuthor(String name) {
         return authorMap.get(name);
     }
 
-    // method for creating a new user, which also saves it
-    public void addUser(String name) {
+    /**
+     * Method for adding a new author in the diary.
+     *
+     * @param name name of the new author
+     */
+    public void addAuthor(String name) {
         Author author = new Author(name);
         authorMap.put(name, author);
-
     }
 }

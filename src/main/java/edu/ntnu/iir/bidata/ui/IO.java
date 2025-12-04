@@ -337,8 +337,8 @@ public class IO {
 
         while (running) {
             String choice = userMenu(authorManager, author);
-            if (authorManager.getUsers().contains(choice)) {
-                return authorManager.getUser(choice);
+            if (authorManager.getAuthors().contains(choice)) {
+                return authorManager.getAuthor(choice);
             } else if (choice.equals("new")) {
                 return addUser(authorManager);
             } else if (choice.equals("none")) {
@@ -355,7 +355,7 @@ public class IO {
     private String userMenu(AuthorManager authorManager, Author author) {
         final String RESET = "\u001B[0m";
         final String GREEN = "\u001B[32m";
-        ArrayList<String> userNames = authorManager.getUsers();
+        ArrayList<String> userNames = authorManager.getAuthors();
         for (String name: userNames) {
             if (name.equals(author.getName())) {
                 System.out.println(GREEN + name + RESET);
@@ -371,8 +371,8 @@ public class IO {
     public Author addUser(AuthorManager authorManager) {
         System.out.println("What is your name");
         String name = input.nextLine();
-        authorManager.addUser(name);
-        return authorManager.getUser(name);
+        authorManager.addAuthor(name);
+        return authorManager.getAuthor(name);
     }
 
     // this section has some functions that the class methods rely on
