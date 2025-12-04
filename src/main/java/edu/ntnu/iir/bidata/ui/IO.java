@@ -284,7 +284,7 @@ public class IO {
     private Entry getEntriesAuthor(EntryManager entryManager, Author author, AuthorManager authorManager) {
         System.out.println("Choose the author you want to sort by.");
         Author choice = userSettings(authorManager, author);
-        HashMap<Integer, Entry> entries = entryManager.searchAuthor(choice.getName());
+        HashMap<Integer, Entry> entries = entryManager.searchAuthor(choice);
         return printEntries(entries, entryManager);
     }
 
