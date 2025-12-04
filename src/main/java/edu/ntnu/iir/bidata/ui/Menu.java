@@ -32,36 +32,49 @@ public class Menu {
     }
 
     // this is part of the new code
-    Scanner input = new Scanner(System.in);
+    Scanner input = null;
 
-    AuthorManager authorManager = new AuthorManager();
-    EntryManager entryManager = new EntryManager();
+    AuthorManager authorManager = null;
+    EntryManager entryManager = null;
+    Author author = null;
 
-    IO io = new IO();
+    IO io = null;
 
-    Author author = io.addUser(authorManager);
 
     public void initialize() {
+        input = new Scanner(System.in);
+        authorManager = new AuthorManager();
+        entryManager = new EntryManager();
+
+        io = new IO();
+        author = io.addUser(authorManager);
 
     }
 
     public void start() {
-        boolean runProgram = true;
 
-        while (runProgram) {
-            showMenu();
-            String menuChoice = input.nextLine();
+        if (input != null || authorManager != null || entryManager != null || io != null || author != null) {
+            boolean runProgram = true;
 
-            switch(menuChoice) {
-                case "new" -> io.newDiary(entryManager, author, authorManager);
+            while (runProgram) {
+                showMenu();
+                String menuChoice = input.nextLine();
 
-                case "prior" -> io.priorDiaries(entryManager, author, authorManager);
+                switch(menuChoice) {
+                    case "new" -> io.newDiary(entryManager, author, authorManager);
 
-                case "author" -> checkUser();
+                    case "prior" -> io.priorDiaries(entryManager, author, authorManager);
 
-                case "exit" -> runProgram = false;
+                    case "author" -> checkUser();
+
+                    case "exit" -> runProgram = false;
+                }
             }
+
+        } else {
+            initialize();
         }
+
     }
     private void checkUser() {
         Author newAuthor = io.userSettings(authorManager, author);

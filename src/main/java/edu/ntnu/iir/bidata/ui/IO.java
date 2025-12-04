@@ -4,8 +4,8 @@ import edu.ntnu.iir.bidata.model.Author;
 import edu.ntnu.iir.bidata.model.Entry;
 import edu.ntnu.iir.bidata.storage.AuthorManager;
 import edu.ntnu.iir.bidata.storage.EntryManager;
-import edu.ntnu.iir.bidata.utils.Date;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -136,7 +136,6 @@ public class IO {
             int day = input.nextInt();
             input.nextLine();
             System.out.print("month: ");
-            input.nextLine();
             int month = input.nextInt();
             System.out.print("year: ");
             input.nextLine();
@@ -297,6 +296,7 @@ public class IO {
         System.out.println("tag: search by tags");
         System.out.println("author: search for authors");
         System.out.println("date: search by a date");
+        System.out.println("period: search by period");
         System.out.println("none: exit sorting menu");
 
         try {
@@ -309,7 +309,7 @@ public class IO {
     }
 
     private Entry getEntriesDate(EntryManager entryManager) {
-        Date date = makeDate();
+        LocalDate date = makeDate();
         HashMap<Integer, Entry> entries = entryManager.searchDate(date);
         if (entries.isEmpty()) {
             System.out.println("No entries found");
@@ -320,8 +320,8 @@ public class IO {
     }
 
     private Entry getEntriesPeriod(EntryManager entryManager) {
-        Date date1 = makeDate();
-        Date date2 = makeDate();
+        LocalDate date1 = makeDate();
+        LocalDate date2 = makeDate();
         HashMap<Integer, Entry> entries = entryManager.searchPeriod(date1, date2);
         if (entries.isEmpty()) {
             System.out.println("No entries found");
@@ -377,8 +377,8 @@ public class IO {
 
     // this section has some functions that the class methods rely on
 
-    private Date makeDate() {
-        Date date = null;
+    private LocalDate makeDate() {
+        LocalDate date = null;
         try {
             System.out.println("Write in the date");
             System.out.print("day: ");
@@ -390,7 +390,7 @@ public class IO {
             System.out.print("year: ");
             int year = input.nextInt();
             input.nextLine();
-            date = new Date(day, month, year);
+            date = LocalDate.of(year, month, day);
         } catch (Exception e) {
             System.out.println("not a number.");
         }

@@ -1,7 +1,7 @@
 package edu.ntnu.iir.bidata.model;
 
-import edu.ntnu.iir.bidata.utils.Date;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +17,8 @@ public class Entry {
     private String title;
     private ArrayList<String> tags;
     private String content;
-    private Date date;
+    private LocalDate date;
+
 
 
     /**
@@ -30,7 +31,7 @@ public class Entry {
         this.title = title;
         this.tags = tags;
         this.content = content;
-        date = new Date();
+        date = LocalDate.now();
 
     }
 
@@ -75,7 +76,7 @@ public class Entry {
         this.content = content;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -84,7 +85,7 @@ public class Entry {
     }
 
     public void setDate(int day, int month, int year) {
-        date = new Date(day, month, year);
+        date = LocalDate.of(year, month, day);
     }
 
 
