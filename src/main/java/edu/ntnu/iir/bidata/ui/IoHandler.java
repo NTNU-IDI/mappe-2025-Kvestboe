@@ -512,7 +512,7 @@ public class IoHandler {
    * @return the author that the user added
    */
   public Author addAuthor(AuthorManager authorManager) {
-    System.out.println("What is your name");
+    System.out.print("What is your name: ");
     String name = input.nextLine();
     authorManager.addAuthor(name);
     return authorManager.getAuthor(name);
@@ -528,19 +528,10 @@ public class IoHandler {
   private LocalDate makeDate() {
     LocalDate date = null;
     try {
-      System.out.println("Write in the date");
-      System.out.print("day: ");
-      int day = input.nextInt();
-      input.nextLine();
-      System.out.print("month: ");
-      int month = input.nextInt();
-      input.nextLine();
-      System.out.print("year: ");
-      int year = input.nextInt();
-      input.nextLine();
-      date = LocalDate.of(year, month, day);
+      System.out.println("Write in the date(YYYY-MM-DD): ");
+      date = LocalDate.parse(input.nextLine());
     } catch (Exception e) {
-      System.out.println("not a number.");
+      System.out.println("Not a valid date.");
     }
     return date;
 
