@@ -4,9 +4,8 @@ package edu.ntnu.iir.bidata.storage;
 
 import edu.ntnu.iir.bidata.model.Entry;
 
+import java.time.LocalDate;
 import java.util.HashMap;
-import edu.ntnu.iir.bidata.utils.Date;
-
 
 
 public class EntryManager {
@@ -75,27 +74,24 @@ public class EntryManager {
         return entries;
     }
 
-    public HashMap<Integer, Entry> searchDate(Date date) {
+    public HashMap<Integer, Entry> searchDate(LocalDate date) {
         HashMap<Integer, Entry> entries = new HashMap<>();
         for (int key: entryMap.keySet()) {
             Entry entry = entryMap.get(key);
-            if (entry.getDateString().equals(date.toString())) {
+            if (date.isEqual(entry.getDate())) {
                 entries.put(key, entry);
             }
         }
         return entries;
     }
 
-    public HashMap<Integer, Entry> searchPeriod(Date date1, Date date2) {
+
+    public HashMap<Integer, Entry> searchPeriod(LocalDate date1, LocalDate date2) {
         HashMap<Integer, Entry> entries = new HashMap<>();
         for (int key: entryMap.keySet()) {
             Entry entry = entryMap.get(key);
-            if (
-                    (entry.getDate().getYear() > date1.getYear() && entry.getDate().getYear() < date2.getYear()) &&
-                    (entry.getDate().getMonth() > date1.getMonth() && entry.getDate().getMonth() < date2.getMonth()) &&
-                    (entry.getDate().getDay() > date1.getDay() && entry.getDate().getDay() < date2.getDay())
-            ) {
 
+            if (date1.isBefore(entry.getDate()) & date2.isAfter(entry.getDate())) {
                 entries.put(key, entry);
             }
         }
