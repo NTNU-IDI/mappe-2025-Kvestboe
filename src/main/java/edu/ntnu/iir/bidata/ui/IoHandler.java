@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+// TODO: Make IoHandler into multiple classes, it is too long.
+// TODO: Make readme.
+
 /**
  * This class represents the different menus,
  * prompts and input/output between the user and the program.
