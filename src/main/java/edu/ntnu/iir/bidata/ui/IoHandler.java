@@ -2,7 +2,7 @@ package edu.ntnu.iir.bidata.ui;
 
 import edu.ntnu.iir.bidata.model.Author;
 import edu.ntnu.iir.bidata.model.Entry;
-import edu.ntnu.iir.bidata.model.Statistics;
+import edu.ntnu.iir.bidata.model.Statistic;
 import edu.ntnu.iir.bidata.storage.AuthorManager;
 import edu.ntnu.iir.bidata.storage.EntryManager;
 import java.time.LocalDate;
@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class IoHandler {
 
   Scanner input = new Scanner(System.in);
-  Statistics stat = new Statistics();
+  Statistic stat = new Statistic();
 
   // this section will handle adding a new diary to the manager
 

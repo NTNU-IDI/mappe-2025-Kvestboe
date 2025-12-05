@@ -6,7 +6,7 @@ import java.util.HashMap;
 /**
  * This class represent the statistics in the diary.
  */
-public class Statistics {
+public class Statistic {
 
   /**
    * This attribute has the number of entries per author.
