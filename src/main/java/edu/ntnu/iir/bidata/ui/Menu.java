@@ -14,7 +14,7 @@ public class Menu {
    * This method will print the main menu.
    */
   public void showMenu() {
-    if (entryManager.allDiaries().isEmpty()) {
+    if (entryManager.getEntries().isEmpty()) {
       System.out.println("Select your option:");
       System.out.println("new: new entry.");
       System.out.println("author: change author.");

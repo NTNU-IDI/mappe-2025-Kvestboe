@@ -47,7 +47,7 @@ public class IoHandler {
 
     stat.addEntriesThisMonth(LocalDate.now());
 
-    editDiary(entryManager.getDiary(entry), authorManager, entryManager);
+    editDiary(entryManager.getEntry(entry), authorManager, entryManager);
 
   }
 
@@ -359,7 +359,7 @@ public class IoHandler {
     try {
       int key = input.nextInt();
       input.nextLine();
-      return entryManager.getDiary(key);
+      return entryManager.getEntry(key);
     } catch (Exception e) {
       System.out.println("not an option");
       return null;
@@ -373,7 +373,7 @@ public class IoHandler {
    * @return the entry that the user picked
    */
   private Entry getAllEntries(EntryManager entryManager) {
-    HashMap<Integer, Entry> entries = entryManager.allDiaries();
+    HashMap<Integer, Entry> entries = entryManager.getEntries();
     return printEntries(entries, entryManager);
 
   }

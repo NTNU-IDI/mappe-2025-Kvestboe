@@ -54,7 +54,7 @@ public class EntryManager {
    * @param key the key of the diary
    * @return an entry
    */
-  public Entry getDiary(int key) {
+  public Entry getEntry(int key) {
     return entryMap.get(key);
   }
 
@@ -63,7 +63,7 @@ public class EntryManager {
    *
    * @return all entries.
    */
-  public HashMap<Integer, Entry> allDiaries() {
+  public HashMap<Integer, Entry> getEntries() {
     return entryMap;
   }
 

@@ -44,7 +44,7 @@ public class EntryTest {
     entry.setContent("works content");
     entry.setDate(newDate);
 
-    assertEquals("Elon Musk", author.getName(),  "Author's name should be Elon Musk");
+    assertEquals("Elon Musk", entry.getAuthor().getName(),  "Author's name should be Elon Musk");
     assertEquals("works title", entry.getTitle(),   "Entry's title should be Elon Musk");
     assertEquals(newTags, entry.getTags(),  "Entry's tags should be same as newTags");
     assertEquals("works content", entry.getContent(),   "Entry's content should be works content");

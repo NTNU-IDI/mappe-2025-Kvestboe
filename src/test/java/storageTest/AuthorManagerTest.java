@@ -17,7 +17,7 @@ public class AuthorManagerTest {
   }
 
   @Test
-  void authorManagerAddAuthorTest() {
+  void testAuthorManagerAddAuthor() {
     ArrayList<String> authors = new ArrayList<>();
     authors.add("Kristian");
 
@@ -36,16 +36,16 @@ public class AuthorManagerTest {
   }
 
   @Test
-  void authorManagerGettersTest() {
+  void testAuthorManagerGetters() {
     ArrayList<String> authors = new ArrayList<>();
     authors.add("Kristian");
-    authors.add("Elon Musk");
     authors.add("Obama");
+    authors.add("Elon Musk");
 
     authorManager.addAuthor("Kristian");
+    authorManager.addAuthor("Obama");
     authorManager.addAuthor("Elon Musk");
 
-    authorManager.addAuthor("Kristian");
     assertEquals(
         "Kristian",
         authorManager.getAuthor("Kristian").getName(),
