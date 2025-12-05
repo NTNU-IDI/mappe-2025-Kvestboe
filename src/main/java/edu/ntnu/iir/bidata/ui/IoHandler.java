@@ -2,6 +2,7 @@ package edu.ntnu.iir.bidata.ui;
 
 import edu.ntnu.iir.bidata.model.Author;
 import edu.ntnu.iir.bidata.model.Entry;
+import edu.ntnu.iir.bidata.model.Statistics;
 import edu.ntnu.iir.bidata.storage.AuthorManager;
 import edu.ntnu.iir.bidata.storage.EntryManager;
 import java.time.LocalDate;
@@ -16,6 +17,7 @@ import java.util.Scanner;
 public class IoHandler {
 
   Scanner input = new Scanner(System.in);
+  Statistics stat = new Statistics();
 
   // this section will handle adding a new diary to the manager
 
@@ -32,12 +34,18 @@ public class IoHandler {
 
     System.out.print("Write in a tags (with a space between): ");
     ArrayList<String> tags = formatTags(input.nextLine());
+    for (String tag : tags) {
+      stat.addTagCount(tag);
+    }
 
     System.out.println("Write in the content of the diary: ");
     String content = inputContent();
 
     Entry diary = new Entry(author, title, tags, content);
     int entry = entryManager.addEntry(diary);
+    stat.addEntryCount(author);
+
+    stat.addEntriesThisMonth(LocalDate.now());
 
     editDiary(entryManager.getDiary(entry), authorManager, entryManager);
 
@@ -71,7 +79,6 @@ public class IoHandler {
         default -> System.out.println("Invalid choice.");
       }
     }
-
   }
 
   /**
@@ -90,6 +97,7 @@ public class IoHandler {
     System.out.println("delete: delete the diary entry");
     System.out.println("none: go back");
 
+    System.out.print("> ");
     return input.nextLine();
 
   }
@@ -104,8 +112,17 @@ public class IoHandler {
     System.out.println("Are you sure you want to delete this entry?");
     System.out.println("yes: delete entry");
     System.out.println("anything: go back");
+
+    System.out.print("> ");
     String choice = input.nextLine();
     if (choice.equals("yes")) {
+      stat.removeEntryCount(entry.getAuthor());
+
+      for (String tag : entry.getTags()) {
+        stat.removeTagCount(tag);
+      }
+
+      stat.removeEntriesThisMonth(entry.getDate());
       entryManager.deleteEntry(entry);
     } else {
       System.out.println("Went back.");
@@ -122,7 +139,9 @@ public class IoHandler {
   private void editUser(Entry entry, AuthorManager authorManager) {
     Author author = authorSetting(authorManager, entry.getAuthor());
     if (author != null) {
+      stat.removeEntryCount(entry.getAuthor());
       entry.setAuthor(author);
+      stat.addEntryCount(author);
       System.out.println("Changed the author");
     } else {
       System.out.println("Did not change author.");
@@ -156,16 +175,17 @@ public class IoHandler {
    * @param entry entry to be edited
    */
   private void editTags(Entry entry) {
-    System.out.println("What do you wish to do with the tags:");
+    System.out.println("What do you wish to do with the tags.");
     System.out.println("add: add new tags");
     System.out.println("remove: remove tags");
     System.out.println("write anything to go back");
 
+    System.out.print("> ");
     String choice = input.nextLine();
     switch (choice) {
       case "add" -> addTags(entry);
       case "remove" -> removeTags(entry);
-      default -> System.out.println("No option matches, " + choice + ", going back");
+      default -> System.out.println("No option matches \"" + choice + "\", going back.");
     }
 
   }
@@ -176,14 +196,17 @@ public class IoHandler {
    * @param entry entry to be edited
    */
   private void editDate(Entry entry) {
-    System.out.println("current date: " + entry.getDateString());
-    System.out.println("write anything, not a number, to go back");
+    System.out.println("Current date: " + entry.getDateString());
+    System.out.println("Write anything, not a number, to go back.");
     try {
       LocalDate newDate = makeDate();
-      entry.setDate(newDate);
+      if (newDate != null) {
+        stat.removeEntriesThisMonth(entry.getDate());
+        entry.setDate(newDate);
+        stat.addEntriesThisMonth(newDate);
+      }
     } catch (Exception e) {
-      System.out.println("not a number");
-      input.nextLine();
+      System.out.println("NaN");
     }
 
   }
@@ -216,12 +239,13 @@ public class IoHandler {
    * @return the choice of the author
    */
   private String contentMenu() {
-    System.out.println("What do you wish to do:");
+    System.out.println("What do you wish to do.");
     System.out.println("read: read the content of the diary");
     System.out.println("write: rewrite the content of the diary");
     System.out.println("add: add to the already existing content");
     System.out.println("none: exit the content menu");
 
+    System.out.print("> ");
     return input.nextLine();
   }
 
@@ -258,11 +282,13 @@ public class IoHandler {
     ArrayList<String> tags = entry.getTags();
     for (String tag : newTags) {
       if (tags.contains(tag)) {
-        System.out.println("Tag already exists, " + tag);
+        System.out.println("Tag \"" + tag + "\" already exists.");
       } else {
         tags.add(tag);
+        stat.addTagCount(tag);
       }
     }
+
     entry.setTags(tags);
   }
 
@@ -278,8 +304,9 @@ public class IoHandler {
     for (String tag : newTags) {
       if (tags.contains(tag)) {
         tags.remove(tag);
+        stat.removeTagCount(tag);
       } else {
-        System.out.println("No tags match the tag, " + tag);
+        System.out.println("No tags matches the tag \"" + tag + "\".");
       }
 
     }
@@ -328,8 +355,9 @@ public class IoHandler {
    * @return the entry that the user chose
    */
   private Entry pickEntry(EntryManager entryManager) {
-    System.out.print("Write in the number of the diary you want to pick:");
+    System.out.print("Write in the number of the diary you want to pick.");
     try {
+      System.out.print("> ");
       int key = input.nextInt();
       input.nextLine();
       return entryManager.getDiary(key);
@@ -387,7 +415,7 @@ public class IoHandler {
    */
   private Entry getEntriesAuthor(EntryManager entryManager, Author author,
       AuthorManager authorManager) {
-    System.out.println("Choose the author you want to sort by.");
+    System.out.println("Choose the author you want to sort by: ");
     Author choice = authorSetting(authorManager, author);
     HashMap<Integer, Entry> entries = entryManager.searchAuthor(choice);
     return printEntries(entries, entryManager);
@@ -410,6 +438,7 @@ public class IoHandler {
     System.out.println("none: exit sorting menu");
 
     try {
+      System.out.print("> ");
       choice = input.nextLine();
     } catch (Exception e) {
       System.out.println("not a valid choice");
@@ -428,7 +457,7 @@ public class IoHandler {
     LocalDate date = makeDate();
     HashMap<Integer, Entry> entries = entryManager.searchDate(date);
     if (entries.isEmpty()) {
-      System.out.println("No entries found");
+      System.out.println("No entries found.");
       return null;
     } else {
       return printEntries(entries, entryManager);
@@ -446,7 +475,7 @@ public class IoHandler {
     LocalDate date2 = makeDate();
     HashMap<Integer, Entry> entries = entryManager.searchPeriod(date1, date2);
     if (entries.isEmpty()) {
-      System.out.println("No entries found");
+      System.out.println("No entries found.");
       return null;
     } else {
       return printEntries(entries, entryManager);
@@ -502,6 +531,7 @@ public class IoHandler {
     }
     System.out.println("new: make new user");
     System.out.println("none: exit user manager");
+    System.out.print("> ");
     return input.nextLine();
   }
 
@@ -516,6 +546,23 @@ public class IoHandler {
     String name = input.nextLine();
     authorManager.addAuthor(name);
     return authorManager.getAuthor(name);
+  }
+
+  // this section has the methods for statistics
+  /**
+   * This method is for printing out statistics to the user.
+   */
+  public void statistics() {
+    System.out.println("Entries this month: " + stat.getEntriesThisMonth());
+    System.out.println("All tag count: ");
+    for (String tag : stat.getTagCount().keySet()) {
+      System.out.println(tag + ": " + stat.getTagCount().get(tag));
+    }
+    System.out.println("All author count: ");
+    for (Author author : stat.getEntryCount().keySet()) {
+      System.out.println(author.getName() + ": " + stat.getEntryCount().get(author));
+    }
+
   }
 
   // this section has some functions that the class methods rely on
@@ -552,7 +599,7 @@ public class IoHandler {
       }
       return pickEntry(entryManager);
     } else {
-      System.out.println("No entries found");
+      System.out.println("No entries found.");
       return null;
     }
   }
@@ -561,14 +608,14 @@ public class IoHandler {
    * This method will format the tags.
    *
    * @param tags tags is the string to be converted
-   * @return the
+   * @return the tags in the right format, arraylist
    */
   private ArrayList<String> formatTags(String tags) {
     ArrayList<String> formattedTags = new ArrayList<>();
     String[] stringArray = tags.split("\\s");
 
     for (String tag : stringArray) {
-      if (!tags.contains(tag)) {
+      if (!formattedTags.contains(tag)) {
         formattedTags.add(tag);
       }
     }
@@ -584,7 +631,7 @@ public class IoHandler {
     StringBuilder content = new StringBuilder();
     boolean done = false;
 
-    System.out.println("Write done, to stop content loop.");
+    System.out.println("Write \"done\" to stop content loop.");
 
     while (!done) {
       String line = input.nextLine();

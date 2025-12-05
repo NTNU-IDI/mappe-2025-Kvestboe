@@ -19,13 +19,16 @@ public class Menu {
       System.out.println("new: new entry.");
       System.out.println("author: change author.");
       System.out.println("exit: exit.");
+      System.out.print("> ");
 
     } else {
       System.out.println("Select your option:");
       System.out.println("new: new entry.");
       System.out.println("prior: view prior entries.");
       System.out.println("author: change author.");
+      System.out.println("stat: show the statistics of the diary.");
       System.out.println("exit: exit.");
+      System.out.print("> ");
 
     }
   }
@@ -71,6 +74,8 @@ public class Menu {
           case "prior" -> ioHandler.priorEntries(entryManager, author, authorManager);
 
           case "author" -> checkUser();
+
+          case "stat" -> ioHandler.statistics();
 
           case "exit" -> runProgram = false;
 
