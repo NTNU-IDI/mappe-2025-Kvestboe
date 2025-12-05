@@ -355,9 +355,8 @@ public class IoHandler {
    * @return the entry that the user chose
    */
   private Entry pickEntry(EntryManager entryManager) {
-    System.out.print("Write in the number of the diary you want to pick.");
+    System.out.print("Write in the number of the diary you want to pick: ");
     try {
-      System.out.print("> ");
       int key = input.nextInt();
       input.nextLine();
       return entryManager.getDiary(key);
