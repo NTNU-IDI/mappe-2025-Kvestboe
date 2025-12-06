@@ -16,7 +16,7 @@ public class EntryManager {
   /**
    * The entries in the diary.
    */
-  private final HashMap<Integer, Entry> entryMap = new HashMap<>();
+  private final HashMap<Integer, Entry> EntryMap = new HashMap<>();
 
   /**
    * The key of the entries.
@@ -30,7 +30,7 @@ public class EntryManager {
    * @return the id of the entry added
    */
   public int addEntry(Entry entry) {
-    entryMap.put(key, entry);
+    EntryMap.put(key, entry);
     key++;
     return key - 1;
   }
@@ -41,9 +41,9 @@ public class EntryManager {
    * @param entry the entry to be deleted
    */
   public void deleteEntry(Entry entry) {
-    for (int key : entryMap.keySet()) {
-      if (entryMap.get(key) == entry) {
-        entryMap.remove(key);
+    for (int key : EntryMap.keySet()) {
+      if (EntryMap.get(key) == entry) {
+        EntryMap.remove(key);
       }
     }
   }
@@ -55,7 +55,7 @@ public class EntryManager {
    * @return an entry
    */
   public Entry getEntry(int key) {
-    return entryMap.get(key);
+    return EntryMap.get(key);
   }
 
   /**
@@ -64,7 +64,7 @@ public class EntryManager {
    * @return all entries.
    */
   public HashMap<Integer, Entry> getEntries() {
-    return entryMap;
+    return EntryMap;
   }
 
   /**
@@ -75,8 +75,8 @@ public class EntryManager {
    */
   public HashMap<Integer, Entry> searchTitle(String title) {
     HashMap<Integer, Entry> diaries = new HashMap<>();
-    for (int key : entryMap.keySet()) {
-      Entry entry = entryMap.get(key);
+    for (int key : EntryMap.keySet()) {
+      Entry entry = EntryMap.get(key);
       if (entry.getTitle().contains(title)) {
         diaries.put(key, entry);
       }
@@ -94,8 +94,8 @@ public class EntryManager {
   public HashMap<Integer, Entry> searchTag(String tag) {
     HashMap<Integer, Entry> diaries = new HashMap<>();
 
-    for (int key : entryMap.keySet()) {
-      Entry entry = entryMap.get(key);
+    for (int key : EntryMap.keySet()) {
+      Entry entry = EntryMap.get(key);
       if (entry.getTags().contains(tag)) {
         diaries.put(key, entry);
       }
@@ -111,8 +111,8 @@ public class EntryManager {
    */
   public HashMap<Integer, Entry> searchAuthor(Author author) {
     HashMap<Integer, Entry> entries = new HashMap<>();
-    for (int key : entryMap.keySet()) {
-      Entry entry = entryMap.get(key);
+    for (int key : EntryMap.keySet()) {
+      Entry entry = EntryMap.get(key);
       Author entryAuthor = entry.getAuthor();
       if (author == entryAuthor) {
         entries.put(key, entry);
@@ -129,8 +129,8 @@ public class EntryManager {
    */
   public HashMap<Integer, Entry> searchDate(LocalDate date) {
     HashMap<Integer, Entry> entries = new HashMap<>();
-    for (int key : entryMap.keySet()) {
-      Entry entry = entryMap.get(key);
+    for (int key : EntryMap.keySet()) {
+      Entry entry = EntryMap.get(key);
       if (date.isEqual(entry.getDate())) {
         entries.put(key, entry);
       }
@@ -147,10 +147,10 @@ public class EntryManager {
    */
   public HashMap<Integer, Entry> searchPeriod(LocalDate date1, LocalDate date2) {
     HashMap<Integer, Entry> entries = new HashMap<>();
-    for (int key : entryMap.keySet()) {
-      Entry entry = entryMap.get(key);
+    for (int key : EntryMap.keySet()) {
+      Entry entry = EntryMap.get(key);
 
-      if (date1.isBefore(entry.getDate()) & date2.isAfter(entry.getDate())) {
+      if (date1.isBefore(entry.getDate()) && date2.isAfter(entry.getDate())) {
         entries.put(key, entry);
       }
     }

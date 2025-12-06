@@ -11,12 +11,12 @@ public class Statistic {
   /**
    * This attribute has the number of entries per author.
    */
-  private final HashMap<Author, Integer> entryCount = new HashMap<>();
+  private final HashMap<Author, Integer> EntryCount = new HashMap<>();
 
   /**
    * Most occuring tags.
    */
-  private final HashMap<String, Integer> tagCount =  new HashMap<>();
+  private final HashMap<String, Integer> TagCount =  new HashMap<>();
 
   /**
    * Number of entries this month.
@@ -30,7 +30,7 @@ public class Statistic {
    * @param author author of the diary
    */
   public void addEntryCount(Author author) {
-    entryCount.put(author, entryCount.getOrDefault(author, 0) + 1);
+    EntryCount.put(author, EntryCount.getOrDefault(author, 0) + 1);
   }
 
   /**
@@ -39,7 +39,7 @@ public class Statistic {
    * @param tag tag is the to be incremented
    */
   public void addTagCount(String tag) {
-    tagCount.put(tag, tagCount.getOrDefault(tag, 0) + 1);
+    TagCount.put(tag, TagCount.getOrDefault(tag, 0) + 1);
   }
 
   /**
@@ -60,7 +60,7 @@ public class Statistic {
    * @param author author to decrement
    */
   public void removeEntryCount(Author author) {
-    entryCount.put(author, entryCount.getOrDefault(author, 0) - 1);
+    EntryCount.put(author, EntryCount.getOrDefault(author, 0) - 1);
   }
 
   /**
@@ -69,7 +69,7 @@ public class Statistic {
    * @param tag tag to be decremented
    */
   public void removeTagCount(String tag) {
-    tagCount.put(tag, tagCount.getOrDefault(tag, 0) - 1);
+    TagCount.put(tag, TagCount.getOrDefault(tag, 0) - 1);
   }
 
   /**
@@ -88,7 +88,7 @@ public class Statistic {
    * @return the entry count
    */
   public HashMap<Author, Integer> getEntryCount() {
-    return entryCount;
+    return EntryCount;
   }
 
   /**
@@ -97,7 +97,7 @@ public class Statistic {
    * @return the tag count
    */
   public HashMap<String, Integer> getTagCount() {
-    return tagCount;
+    return TagCount;
   }
 
   /**

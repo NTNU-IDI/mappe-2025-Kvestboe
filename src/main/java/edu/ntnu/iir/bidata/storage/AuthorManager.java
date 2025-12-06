@@ -12,7 +12,7 @@ public class AuthorManager {
   /**
    * The authors of the diary.
    */
-  private final HashMap<String, Author> authorMap = new HashMap<>();
+  private final HashMap<String, Author> AuthorMap = new HashMap<>();
 
   /**
    * Getter for the authors names in the diary.
@@ -21,7 +21,7 @@ public class AuthorManager {
    */
   public ArrayList<String> getAuthors() {
     ArrayList<String> userNames = new ArrayList<>();
-    for (Author author : authorMap.values()) {
+    for (Author author : AuthorMap.values()) {
       userNames.add(author.getName());
     }
     return userNames;
@@ -34,7 +34,7 @@ public class AuthorManager {
    * @return an Author object
    */
   public Author getAuthor(String name) {
-    return authorMap.get(name);
+    return AuthorMap.get(name);
   }
 
   /**
@@ -44,6 +44,6 @@ public class AuthorManager {
    */
   public void addAuthor(String name) {
     Author author = new Author(name);
-    authorMap.put(name, author);
+    AuthorMap.put(name, author);
   }
 }
