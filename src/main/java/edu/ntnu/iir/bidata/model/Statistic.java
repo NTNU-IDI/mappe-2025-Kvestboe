@@ -11,17 +11,17 @@ public class Statistic {
   /**
    * This attribute has the number of entries per author.
    */
-  HashMap<Author, Integer> entryCount = new HashMap<>();
+  private final HashMap<Author, Integer> entryCount = new HashMap<>();
 
   /**
    * Most occuring tags.
    */
-  HashMap<String, Integer> tagCount =  new HashMap<>();
+  private final HashMap<String, Integer> tagCount =  new HashMap<>();
 
   /**
    * Number of entries this month.
    */
-  int entriesThisMonth = 0;
+  private int entriesThisMonth = 0;
 
   /**
    * This method will increment the entry count,
