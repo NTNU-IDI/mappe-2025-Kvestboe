@@ -5,6 +5,7 @@ import edu.ntnu.iir.bidata.model.Entry;
 import edu.ntnu.iir.bidata.model.Statistic;
 import edu.ntnu.iir.bidata.storage.AuthorManager;
 import edu.ntnu.iir.bidata.storage.EntryManager;
+import edu.ntnu.iir.bidata.utils.EntrySort;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +39,7 @@ public class IoHandler {
     System.out.print("Write in a tags (with a space between): ");
     ArrayList<String> tags = formatTags(input.nextLine());
     for (String tag : tags) {
-      stat.addTagCount(tag);
+      stat.incrementTagCount(tag);
     }
 
     System.out.println("Write in the content of the diary: ");
@@ -46,9 +47,9 @@ public class IoHandler {
 
     Entry diary = new Entry(author, title, tags, content);
     int entry = entryManager.addEntry(diary);
-    stat.addEntryCount(author);
+    stat.incrementEntryCount(author);
 
-    stat.addEntriesThisMonth(LocalDate.now());
+    stat.incrementEntriesThisMonth(LocalDate.now());
 
     editDiary(entryManager.getEntry(entry), authorManager, entryManager);
 
@@ -119,13 +120,13 @@ public class IoHandler {
     System.out.print("> ");
     String choice = input.nextLine();
     if (choice.equals("yes")) {
-      stat.removeEntryCount(entry.getAuthor());
+      stat.decrementEntryCount(entry.getAuthor());
 
       for (String tag : entry.getTags()) {
-        stat.removeTagCount(tag);
+        stat.decrementTagCount(tag);
       }
 
-      stat.removeEntriesThisMonth(entry.getDate());
+      stat.decrementEntriesThisMonth(entry.getDate());
       entryManager.deleteEntry(entry);
     } else {
       System.out.println("Went back.");
@@ -142,9 +143,9 @@ public class IoHandler {
   private void editUser(Entry entry, AuthorManager authorManager) {
     Author author = authorSetting(authorManager, entry.getAuthor());
     if (author != null) {
-      stat.removeEntryCount(entry.getAuthor());
+      stat.decrementEntryCount(entry.getAuthor());
       entry.setAuthor(author);
-      stat.addEntryCount(author);
+      stat.incrementEntryCount(author);
       System.out.println("Changed the author");
     } else {
       System.out.println("Did not change author.");
@@ -204,9 +205,9 @@ public class IoHandler {
     try {
       LocalDate newDate = makeDate();
       if (newDate != null) {
-        stat.removeEntriesThisMonth(entry.getDate());
+        stat.decrementEntriesThisMonth(entry.getDate());
         entry.setDate(newDate);
-        stat.addEntriesThisMonth(newDate);
+        stat.incrementEntriesThisMonth(newDate);
       }
     } catch (Exception e) {
       System.out.println("NaN");
@@ -288,7 +289,7 @@ public class IoHandler {
         System.out.println("Tag \"" + tag + "\" already exists.");
       } else {
         tags.add(tag);
-        stat.addTagCount(tag);
+        stat.incrementTagCount(tag);
       }
     }
 
@@ -307,7 +308,7 @@ public class IoHandler {
     for (String tag : newTags) {
       if (tags.contains(tag)) {
         tags.remove(tag);
-        stat.removeTagCount(tag);
+        stat.decrementTagCount(tag);
       } else {
         System.out.println("No tags matches the tag \"" + tag + "\".");
       }
@@ -326,6 +327,7 @@ public class IoHandler {
    * @param authorManager authorManager is the register of authors
    */
   public void priorEntries(EntryManager entryManager, Author author, AuthorManager authorManager) {
+    EntrySort entrySort = new EntrySort();
 
     boolean running = true;
     boolean valid = true;
@@ -390,7 +392,9 @@ public class IoHandler {
   private Entry getEntriesTitle(EntryManager entryManager) {
     System.out.print("Write in the title you want to search by: ");
     String title = input.nextLine();
-    HashMap<Integer, Entry> entries = entryManager.searchTitle(title);
+//    HashMap<Integer, Entry> entries = entryManager.searchTitle(title);
+    EntrySort entrySort = new EntrySort();
+    HashMap<Integer, Entry> entries = entrySort.searchTitle(entryManager.getEntries(), title);
     return printEntries(entries, entryManager);
   }
 
@@ -561,8 +565,8 @@ public class IoHandler {
       System.out.println(tag + ": " + stat.getTagCount().get(tag));
     }
     System.out.println("All author count: ");
-    for (Author author : stat.getEntryCount().keySet()) {
-      System.out.println(author.getName() + ": " + stat.getEntryCount().get(author));
+    for (Author author : stat.getAuthorCount().keySet()) {
+      System.out.println(author.getName() + ": " + stat.getAuthorCount().get(author));
     }
 
   }

@@ -73,6 +73,9 @@ public class EntryManager {
    * @param title title of the tags
    * @return all entries with the title
    */
+
+
+
   public HashMap<Integer, Entry> searchTitle(String title) {
     HashMap<Integer, Entry> diaries = new HashMap<>();
     for (int key : EntryMap.keySet()) {
@@ -114,7 +117,7 @@ public class EntryManager {
     for (int key : EntryMap.keySet()) {
       Entry entry = EntryMap.get(key);
       Author entryAuthor = entry.getAuthor();
-      if (author == entryAuthor) {
+      if (author.getName().equals(entryAuthor.getName())) {
         entries.put(key, entry);
       }
     }

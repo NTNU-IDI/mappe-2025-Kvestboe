@@ -26,7 +26,7 @@ public class StatisticTest {
 
     assertEquals(
         new HashMap<Author, Integer>(),
-        statistic.getEntryCount(),
+        statistic.getAuthorCount(),
         "Author entry count should be an empty HashMap"
     );
     assertEquals(
@@ -50,13 +50,13 @@ public class StatisticTest {
     HashMap<String, Integer> tagCount = new HashMap<>();
     tagCount.put("test", 1);
 
-    statistic.addEntryCount(author);
-    statistic.addTagCount("test");
-    statistic.addEntriesThisMonth(date);
+    statistic.incrementEntryCount(author);
+    statistic.incrementTagCount("test");
+    statistic.incrementEntriesThisMonth(date);
 
     assertEquals(
         entryCount,
-        statistic.getEntryCount(),
+        statistic.getAuthorCount(),
         "Entries for author Kristian should be 1"
     );
     assertEquals(
@@ -80,17 +80,17 @@ public class StatisticTest {
     HashMap<String, Integer> tagCount = new HashMap<>();
     tagCount.put("test", 0);
 
-    statistic.addEntryCount(author);
-    statistic.addTagCount("test");
-    statistic.addEntriesThisMonth(date);
+    statistic.incrementEntryCount(author);
+    statistic.incrementTagCount("test");
+    statistic.incrementEntriesThisMonth(date);
 
-    statistic.removeEntryCount(author);
-    statistic.removeTagCount("test");
-    statistic.removeEntriesThisMonth(date);
+    statistic.decrementEntryCount(author);
+    statistic.decrementTagCount("test");
+    statistic.decrementEntriesThisMonth(date);
 
     assertEquals(
         entryCount,
-        statistic.getEntryCount(),
+        statistic.getAuthorCount(),
         "Entries for author Kristian should be 0"
       );
     assertEquals(

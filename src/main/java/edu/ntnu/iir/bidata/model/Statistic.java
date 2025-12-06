@@ -11,7 +11,7 @@ public class Statistic {
   /**
    * This attribute has the number of entries per author.
    */
-  private final HashMap<Author, Integer> EntryCount = new HashMap<>();
+  private final HashMap<Author, Integer> AuthorCount = new HashMap<>();
 
   /**
    * Most occuring tags.
@@ -29,8 +29,8 @@ public class Statistic {
    *
    * @param author author of the diary
    */
-  public void addEntryCount(Author author) {
-    EntryCount.put(author, EntryCount.getOrDefault(author, 0) + 1);
+  public void incrementEntryCount(Author author) {
+    AuthorCount.put(author, AuthorCount.getOrDefault(author, 0) + 1);
   }
 
   /**
@@ -38,7 +38,7 @@ public class Statistic {
    *
    * @param tag tag is the to be incremented
    */
-  public void addTagCount(String tag) {
+  public void incrementTagCount(String tag) {
     TagCount.put(tag, TagCount.getOrDefault(tag, 0) + 1);
   }
 
@@ -47,7 +47,7 @@ public class Statistic {
    *
    * @param date date is the date of the entry
    */
-  public void addEntriesThisMonth(LocalDate date) {
+  public void incrementEntriesThisMonth(LocalDate date) {
     if (date.getMonth().equals(LocalDate.now().getMonth())
         && date.getYear() == LocalDate.now().getYear()) {
       entriesThisMonth++;
@@ -59,8 +59,8 @@ public class Statistic {
    *
    * @param author author to decrement
    */
-  public void removeEntryCount(Author author) {
-    EntryCount.put(author, EntryCount.getOrDefault(author, 0) - 1);
+  public void decrementEntryCount(Author author) {
+    AuthorCount.put(author, AuthorCount.getOrDefault(author, 0) - 1);
   }
 
   /**
@@ -68,14 +68,14 @@ public class Statistic {
    *
    * @param tag tag to be decremented
    */
-  public void removeTagCount(String tag) {
+  public void decrementTagCount(String tag) {
     TagCount.put(tag, TagCount.getOrDefault(tag, 0) - 1);
   }
 
   /**
    * This method will decrement the entries this month tag.
    */
-  public void removeEntriesThisMonth(LocalDate date) {
+  public void decrementEntriesThisMonth(LocalDate date) {
     if (date.getMonth().equals(LocalDate.now().getMonth())
         && date.getYear() == LocalDate.now().getYear()) {
       entriesThisMonth--;
@@ -87,8 +87,8 @@ public class Statistic {
    *
    * @return the entry count
    */
-  public HashMap<Author, Integer> getEntryCount() {
-    return EntryCount;
+  public HashMap<Author, Integer> getAuthorCount() {
+    return AuthorCount;
   }
 
   /**
