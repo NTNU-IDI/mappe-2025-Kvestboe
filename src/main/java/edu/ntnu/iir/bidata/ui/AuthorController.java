@@ -26,7 +26,7 @@ public class AuthorController {
       } else if (choice.equals("none")) {
         running = false;
       } else {
-        System.out.println("Invalid choice...");
+        view.printInvalidAction();
       }
     }
 
@@ -36,13 +36,13 @@ public class AuthorController {
 
   private String authorMenu(AuthorManager authorManager, Author activeAuthor) {
     view.promptAuthorOptions(authorManager, activeAuthor);
-
+    return input.read();
 
   }
 
   public Author addAuthor(AuthorManager authorManager) {
-    System.out.print("What is your name: ");
-    String name = input.nextLine();
+    view.printLine("Enter name: ");
+    String name = input.read();
     authorManager.addAuthor(name);
     return authorManager.getAuthor(name);
   }

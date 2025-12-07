@@ -2,9 +2,12 @@ package edu.ntnu.iir.bidata.ui;
 
 import edu.ntnu.iir.bidata.model.Author;
 import edu.ntnu.iir.bidata.model.Entry;
+import edu.ntnu.iir.bidata.model.Statistic;
 import edu.ntnu.iir.bidata.storage.AuthorManager;
 import edu.ntnu.iir.bidata.storage.EntryManager;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ConsoleView {
 
@@ -54,6 +57,15 @@ public class ConsoleView {
 
   }
 
+  public void promptForTagAction(Entry entry) {
+
+    System.out.println("What do you wish to do with the tags.");
+    System.out.println("add: add new tags");
+    System.out.println("remove: remove tags");
+    System.out.println("write anything to go back");
+    System.out.print("> ");
+  }
+
   public void promptForSearchAction() {
     System.out.println("What do you wish to search the diaries by?");
     System.out.println("all: print all entries");
@@ -64,6 +76,11 @@ public class ConsoleView {
     System.out.println("period: search by period");
     System.out.println("none: exit sorting menu");
     System.out.print("> ");
+
+  }
+
+  public void promptForDateAction(Entry entry) {
+
 
   }
 
@@ -106,6 +123,25 @@ public class ConsoleView {
     System.out.println("new: make new user");
     System.out.println("none: exit user manager");
     System.out.print("> ");
+  }
+
+  public void printStatistics(EntryManager entryManager) {
+    Statistic stat = entryManager.getStatistic();
+    System.out.println("Entries this month: " + stat.getEntriesThisMonth());
+    System.out.println("All tag count: ");
+
+    List<Map.Entry<String, Integer>> topTags = stat.getTagCount().entrySet().stream()
+        .sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
+        .limit(3)
+        .toList();
+    for (Map.Entry<String, Integer> entry : topTags) {
+      System.out.println(entry.getKey() + ": " + entry.getValue());
+    }
+    System.out.println("All author count: ");
+    for (String authorName : stat.getAuthorCount().keySet()) {
+      System.out.println(authorName + ": " + stat.getAuthorCount().get(authorName));
+    }
+
   }
 
 }

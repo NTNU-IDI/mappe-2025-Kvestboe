@@ -1,5 +1,6 @@
 package edu.ntnu.iir.bidata;
 
+import edu.ntnu.iir.bidata.ui.Controller;
 import edu.ntnu.iir.bidata.ui.Menu;
 
 /**
@@ -7,8 +8,12 @@ import edu.ntnu.iir.bidata.ui.Menu;
  */
 class Main {
   public static void main(String[] args) {
-    Menu menu = new Menu();
-    menu.initialize();
-    menu.start();
+//    Menu menu = new Menu();
+//    menu.initialize();
+//    menu.start();
+
+    Controller controller = new Controller();
+    controller.initialize();
+    controller.start();
   }
 }

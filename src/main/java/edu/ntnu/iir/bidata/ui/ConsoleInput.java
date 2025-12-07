@@ -78,11 +78,11 @@ public class ConsoleInput {
 
   }
 
-  public String readMultiline(String prompt) {
+  public String readMultiline() {
     StringBuilder content = new StringBuilder();
     boolean done = false;
 
-    view.printLine(prompt);
+    view.printLine("Write in the content of the diary, write done when finished:\n");
 
     while (!done) {
       String line = input.nextLine();
