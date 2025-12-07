@@ -11,7 +11,7 @@ public class Statistic {
   /**
    * This attribute has the number of entries per author.
    */
-  private final HashMap<Author, Integer> AuthorCount = new HashMap<>();
+  private final HashMap<String, Integer> AuthorCount = new HashMap<>();
 
   /**
    * Most occuring tags.
@@ -27,10 +27,10 @@ public class Statistic {
    * This method will increment the entry count,
    * and register the author if it was not in it from before.
    *
-   * @param author author of the diary
+   * @param
    */
-  public void incrementAuthorCount(Author author) {
-    AuthorCount.put(author, AuthorCount.getOrDefault(author, 0) + 1);
+  public void incrementAuthorCount(String authorName) {
+    AuthorCount.put(authorName, AuthorCount.getOrDefault(authorName, 0) + 1);
   }
 
   /**
@@ -57,10 +57,10 @@ public class Statistic {
   /**
    * This method will decrement the entry count for author.
    *
-   * @param author author to decrement
+   * @param
    */
-  public void decrementAuthorCount(Author author) {
-    AuthorCount.put(author, AuthorCount.getOrDefault(author, 0) - 1);
+  public void decrementAuthorCount(String authorName) {
+    AuthorCount.put(authorName, AuthorCount.getOrDefault(authorName, 0) - 1);
   }
 
   /**
@@ -87,7 +87,7 @@ public class Statistic {
    *
    * @return the entry count
    */
-  public HashMap<Author, Integer> getAuthorCount() {
+  public HashMap<String, Integer> getAuthorCount() {
     return AuthorCount;
   }
 

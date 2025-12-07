@@ -1,7 +1,5 @@
 package edu.ntnu.iir.bidata.ui;
 
-import static java.util.Arrays.stream;
-
 import edu.ntnu.iir.bidata.model.Author;
 import edu.ntnu.iir.bidata.model.Entry;
 import edu.ntnu.iir.bidata.model.Statistic;
@@ -10,12 +8,10 @@ import edu.ntnu.iir.bidata.storage.EntryManager;
 import edu.ntnu.iir.bidata.utils.EntrySort;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 // TODO: Make IoHandler into multiple classes, it is too long.
 // TODO: Make readme.
@@ -27,6 +23,8 @@ import java.util.stream.Collectors;
 public class IoHandler {
 
   Scanner input = new Scanner(System.in);
+
+  ConsoleView view = new ConsoleView();
 
   // this section will handle adding a new diary to the manager
 
@@ -91,16 +89,17 @@ public class IoHandler {
    * @return the choice of the user that they wish to edit
    */
   private String editMenu(Entry entry) {
-    System.out.println("Is there anything you wish to edit?");
-    System.out.println("author: " + entry.getAuthor().getName());
-    System.out.println("title: " + entry.getTitle());
-    System.out.println("tags: " + entry.getTagsString());
-    System.out.println("date: " + entry.getDateString());
-    System.out.println("content: view the content or edit it");
-    System.out.println("delete: delete the diary entry");
-    System.out.println("none: go back");
+    view.promptForEditAction(entry);
+//    System.out.println("Is there anything you wish to edit?");
+//    System.out.println("author: " + entry.getAuthor().getName());
+//    System.out.println("title: " + entry.getTitle());
+//    System.out.println("tags: " + entry.getTagsString());
+//    System.out.println("date: " + entry.getDateString());
+//    System.out.println("content: view the content or edit it");
+//    System.out.println("delete: delete the diary entry");
+//    System.out.println("none: go back");
+//    System.out.print("> ");
 
-    System.out.print("> ");
     return input.nextLine();
 
   }
@@ -235,13 +234,7 @@ public class IoHandler {
    * @return the choice of the author
    */
   private String contentMenu() {
-    System.out.println("What do you wish to do.");
-    System.out.println("read: read the content of the diary");
-    System.out.println("write: rewrite the content of the diary");
-    System.out.println("add: add to the already existing content");
-    System.out.println("none: exit the content menu");
-
-    System.out.print("> ");
+    view.promptForContentAction();
     return input.nextLine();
   }
 
@@ -281,7 +274,6 @@ public class IoHandler {
         System.out.println("Tag \"" + tag + "\" already exists.");
       } else {
         tags.add(tag);
-        //stat.incrementTagCount(tag);
       }
     }
 
@@ -300,7 +292,6 @@ public class IoHandler {
     for (String tag : newTags) {
       if (tags.contains(tag)) {
         tags.remove(tag);
-        //stat.decrementTagCount(tag);
       } else {
         System.out.println("No tags matches the tag \"" + tag + "\".");
       }
@@ -319,7 +310,6 @@ public class IoHandler {
    * @param authorManager authorManager is the register of authors
    */
   public void priorEntries(EntryManager entryManager, Author author, AuthorManager authorManager) {
-    EntrySort entrySort = new EntrySort();
 
     boolean running = true;
     boolean valid = true;
@@ -384,7 +374,6 @@ public class IoHandler {
   private Entry getEntriesTitle(EntryManager entryManager) {
     System.out.print("Write in the title you want to search by: ");
     String title = input.nextLine();
-//    HashMap<Integer, Entry> entries = entryManager.searchTitle(title);
     EntrySort entrySort = new EntrySort();
     HashMap<Integer, Entry> entries = entrySort.searchTitle(entryManager.getEntries(), title);
     return printEntries(entries, entryManager);
@@ -399,7 +388,8 @@ public class IoHandler {
   private Entry getEntriesTag(EntryManager entryManager) {
     System.out.print("Write in the tag you want to search by: ");
     String tag = input.nextLine();
-    HashMap<Integer, Entry> entries = entryManager.searchTag(tag);
+    EntrySort entrySort = new EntrySort();
+    HashMap<Integer, Entry> entries = entrySort.searchTag(entryManager.getEntries(), tag);
     return printEntries(entries, entryManager);
   }
 
@@ -415,34 +405,10 @@ public class IoHandler {
       AuthorManager authorManager) {
     System.out.println("Choose the author you want to sort by: ");
     Author choice = authorSetting(authorManager, author);
-    HashMap<Integer, Entry> entries = entryManager.searchAuthor(choice);
+    EntrySort entrySort = new EntrySort();
+    //change to name of author
+    HashMap<Integer, Entry> entries = entrySort.searchAuthor(entryManager.getEntries(), choice);
     return printEntries(entries, entryManager);
-  }
-
-  /**
-   * This method will print the sorting menu.
-   *
-   * @return the choice of the user
-   */
-  private String priorEntriesMenu() {
-    String choice = "";
-    System.out.println("What do you wish to search the diaries by?");
-    System.out.println("all: print all entries");
-    System.out.println("title: search for a title");
-    System.out.println("tag: search by tags");
-    System.out.println("author: search for authors");
-    System.out.println("date: search by a date");
-    System.out.println("period: search by period");
-    System.out.println("none: exit sorting menu");
-
-    try {
-      System.out.print("> ");
-      choice = input.nextLine();
-    } catch (Exception e) {
-      System.out.println("not a valid choice");
-    }
-    return choice;
-
   }
 
   /**
@@ -453,7 +419,8 @@ public class IoHandler {
    */
   private Entry getEntriesDate(EntryManager entryManager) {
     LocalDate date = makeDate();
-    HashMap<Integer, Entry> entries = entryManager.searchDate(date);
+    EntrySort entrySort = new EntrySort();
+    HashMap<Integer, Entry> entries = entrySort.searchDate(entryManager.getEntries(), date);
     if (entries.isEmpty()) {
       System.out.println("No entries found.");
       return null;
@@ -471,7 +438,8 @@ public class IoHandler {
   private Entry getEntriesPeriod(EntryManager entryManager) {
     LocalDate date1 = makeDate();
     LocalDate date2 = makeDate();
-    HashMap<Integer, Entry> entries = entryManager.searchPeriod(date1, date2);
+    EntrySort entrySort = new EntrySort();
+    HashMap<Integer, Entry> entries = entrySort.searchPeriod(entryManager.getEntries(), date1, date2);
     if (entries.isEmpty()) {
       System.out.println("No entries found.");
       return null;
@@ -479,6 +447,25 @@ public class IoHandler {
       return printEntries(entries, entryManager);
     }
   }
+
+  /**
+   * This method will print the sorting menu.
+   *
+   * @return the choice of the user
+   */
+  private String priorEntriesMenu() {
+    String choice = "";
+    view.promptForSearchAction();
+
+    try {
+      choice = input.nextLine();
+    } catch (Exception e) {
+      view.printInvalidAction();
+    }
+    return choice;
+
+  }
+
 
   // this section will handle the user
 
@@ -563,8 +550,8 @@ public class IoHandler {
       System.out.println(entry.getKey() + ": " + entry.getValue());
     }
     System.out.println("All author count: ");
-    for (Author author : stat.getAuthorCount().keySet()) {
-      System.out.println(author.getName() + ": " + stat.getAuthorCount().get(author));
+    for (String authorName : stat.getAuthorCount().keySet()) {
+      System.out.println(authorName + ": " + stat.getAuthorCount().get(authorName));
     }
 
   }
@@ -597,10 +584,7 @@ public class IoHandler {
    */
   private Entry printEntries(HashMap<Integer, Entry> entries, EntryManager entryManager) {
     if (!entries.isEmpty()) {
-      for (int key : entries.keySet()) {
-        Entry entry = entries.get(key);
-        System.out.println(key + ": " + entry.getTitle());
-      }
+      view.printEntries(entries);
       return pickEntry(entryManager);
     } else {
       System.out.println("No entries found.");

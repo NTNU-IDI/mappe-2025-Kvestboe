@@ -38,7 +38,7 @@ public class EntrySort {
   }
 
   public HashMap<Integer, Entry> searchAuthor(HashMap<Integer, Entry> diary, Author author) {
-    return searchEntries(diary, e -> e.getAuthor().equals(author));
+    return searchEntries(diary, e -> e.getAuthor().getName().equals(author.getName()));
   }
 
   public HashMap<Integer, Entry> searchDate(HashMap<Integer, Entry> diary, LocalDate date) {
