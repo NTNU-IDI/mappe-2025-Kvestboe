@@ -17,6 +17,7 @@ public class Controller {
 
   AuthorController authorController;
   EntryController entryController;
+  SearchController searchController;
 
 
 
@@ -36,6 +37,7 @@ public class Controller {
 
     authorController = new AuthorController(view, input);
     entryController = new EntryController(authorController, view, input);
+    searchController = new SearchController(input, view, entryController);
 
     author = authorController.addAuthor(authorManager);
 
@@ -59,7 +61,7 @@ public class Controller {
         switch (menuChoice) {
           case "new" -> entryController.createEntry(entryManager, author, authorManager);
 
-          // case "prior" -> searchEntries(entryManager, author, authorManager); no function to search yet
+          case "prior" -> searchController.searchEntries(entryManager,authorManager, author);
 
           case "author" -> {
             Author newAuthor = authorController.authorOptions(authorManager, author);
@@ -82,67 +84,5 @@ public class Controller {
 
   }
 
-//  public void newDiary(EntryManager entryManager, Author author, AuthorManager authorManager) {
-//    String title = input.readLine("What is the title of the entry you want to create?");
-//
-//    ArrayList<String> tags = input.readTags("Write in tags with a space between:");
-//
-//    String content = input.readMultiline();
-//
-//    Entry diary= new Entry(author, title, tags, content);
-//    int entry = entryManager.addEntry(diary);
-//
-//    editDiary(entryManager.getEntry(entry), authorManager, entryManager);
-//
-//  }
-
-  //this method should belong to another class
-//  /**
-//   * This method will check that the user is valid.
-//   */
-//
-//
-//  private void editContent(Entry entry) {
-//    boolean running = true;
-//    while (running) {
-//      view.promptForContentAction();
-//      String choice = input.read();
-//      switch (choice) {
-//        case "read" -> view.printLine(entry.getContent());
-//        case "write" -> writeContent(entry);
-//        case "add" -> addContent(entry);
-//        case "none" -> running = false;
-//        default  -> view.printInvalidAction();
-//
-//      }
-//    }
-//
-//  }
-
-//  public void searchEntries(EntryManager entryManager, Author author, AuthorManager authorManager) {
-//
-//    boolean running = true;
-//    boolean valid = true;
-//    while (running) {
-//      String choice = priorEntriesMenu();
-//      Entry entry = null;
-//      switch (choice) {
-//        case "all" -> entry = getAllEntries(entryManager);
-//        case "title" -> entry = getEntriesTitle(entryManager);
-//        case "tag" -> entry = getEntriesTag(entryManager);
-//        case "author" -> entry = getEntriesAuthor(entryManager, author, authorManager);
-//        case "date" -> entry = getEntriesDate(entryManager);
-//        case "period" -> entry = getEntriesPeriod(entryManager);
-//        case "none" -> running = false;
-//        default -> valid = false;
-//      }
-//      if (running && valid) {
-//        if (entry != null) {
-//          editDiary(entry, authorManager, entryManager);
-//        }
-//      }
-//    }
-//
-//  }
 
 }

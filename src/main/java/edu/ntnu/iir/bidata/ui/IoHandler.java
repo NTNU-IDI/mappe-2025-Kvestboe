@@ -160,7 +160,7 @@ public class IoHandler {
    * @param entry entry to be edited
    */
   private void editTags(Entry entry) {
-/    System.out.println("What do you wish to do with the tags.");
+    System.out.println("What do you wish to do with the tags.");
     System.out.println("add: add new tags");
     System.out.println("remove: remove tags");
     System.out.println("write anything to go back");

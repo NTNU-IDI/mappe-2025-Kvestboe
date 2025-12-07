@@ -30,6 +30,7 @@ public class ConsoleInput {
     int choice;
     try {
       choice = input.nextInt();
+      input.nextLine();
     } catch (Exception e) {
       view.printInvalidAction();
       return -1;
