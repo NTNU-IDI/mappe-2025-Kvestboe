@@ -1,16 +1,16 @@
 package edu.ntnu.iir.bidata.ui;
 
+import static edu.ntnu.iir.bidata.ui.ConsoleView.*;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ConsoleInput {
   Scanner input;
-  ConsoleView view;
 
-  public ConsoleInput(Scanner scanner, ConsoleView view) {
+  public ConsoleInput(Scanner scanner) {
     input = scanner;
-    this.view = view;
 
   }
 
@@ -19,53 +19,53 @@ public class ConsoleInput {
   }
 
   public String readLine(String prompt) {
-    view.printLine(prompt);
+    printLine(prompt);
     return input.nextLine();
   }
 
   public int readInt(String prompt) {
-    view.printLine(prompt);
+    printLine(prompt);
     int choice;
     try {
       choice = input.nextInt();
       input.nextLine();
     } catch (Exception e) {
-      view.printInvalidAction();
+      printInvalidAction();
       return -1;
     }
     return choice;
   }
 
   public LocalDate readDate() {
-    view.promptMakeDate();
+    promptMakeDate();
     LocalDate date;
     try {
       date = LocalDate.parse(input.nextLine());
     } catch (Exception e) {
-      view.printInvalidAction();
+      printInvalidAction();
       return null;
     }
     return date;
   }
 
   public boolean readConfirmation() {
-    view.promptConfirmationAction();
+    promptConfirmationAction();
     String confirmation = input.nextLine();
     if (confirmation.equals("yes")) {
       return true;
     } else if (confirmation.equals("no")) {
       return false;
     } else {
-      view.printInvalidAction();
+      printInvalidAction();
       return readConfirmation();
     }
 
   }
 
   public ArrayList<String> readTags(String prompt) {
-    view.printLine(prompt);
+    printLine(prompt);
     String tagString = input.nextLine();
-    
+
     ArrayList<String> tagList = new ArrayList<>();
     String[] tagArray = tagString.split("\\s");
 
@@ -82,7 +82,7 @@ public class ConsoleInput {
     StringBuilder content = new StringBuilder();
     boolean done = false;
 
-    view.printLine("Write in the content of the diary, write done when finished:\n");
+    printLine("Write in the content of the diary, write done when finished:\n");
 
     while (!done) {
       String line = input.nextLine();

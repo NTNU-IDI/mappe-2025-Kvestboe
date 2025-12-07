@@ -14,7 +14,7 @@ public class ConsoleView {
   /**
    * This method will print the main menu.
    */
-  public void promptForMenuAction(EntryManager entryManager) {
+  static void promptForMenuAction(EntryManager entryManager) {
     if (entryManager.getDiary().isEmpty()) {
       System.out.println("Select your option:");
       System.out.println("new: new entry.");
@@ -34,7 +34,7 @@ public class ConsoleView {
     }
   }
 
-  public void promptForEditAction(Entry entry) {
+  static void promptForEditAction(Entry entry) {
     System.out.println("Is there anything you wish to edit?");
     System.out.println("author: " + entry.getAuthor().getName());
     System.out.println("title: " + entry.getTitle());
@@ -47,7 +47,7 @@ public class ConsoleView {
 
   }
 
-  public void promptForContentAction() {
+  static void promptForContentAction() {
     System.out.println("What do you wish to do?");
     System.out.println("read: read the content of the diary");
     System.out.println("write: rewrite the content of the diary");
@@ -57,7 +57,7 @@ public class ConsoleView {
 
   }
 
-  public void promptForTagAction() {
+  static void promptForTagAction() {
 
     System.out.println("What do you wish to do with the tags.");
     System.out.println("add: add new tags");
@@ -66,7 +66,7 @@ public class ConsoleView {
     System.out.print("> ");
   }
 
-  public void promptForSearchAction() {
+  static void promptForSearchAction() {
     System.out.println("What do you wish to search the diaries by?");
     System.out.println("all: print all entries");
     System.out.println("title: search for a title");
@@ -79,20 +79,15 @@ public class ConsoleView {
 
   }
 
-  public void promptForDateAction() {
-
-
-  }
-
-  public void promptConfirmationAction() {
+  static void promptConfirmationAction() {
     System.out.print("Are you sure (yes/no): ");
   }
 
-  public void promptMakeDate() {
+  static void promptMakeDate() {
     System.out.print("Write in the date in the format \"YYYY-MM-DD\": ");
   }
 
-  public boolean printEntries(HashMap<Integer, Entry> entries) {
+  static boolean printEntries(HashMap<Integer, Entry> entries) {
     if (entries.isEmpty()) {
       System.out.println("No entries found.");
       return false;
@@ -106,15 +101,15 @@ public class ConsoleView {
 
   }
 
-  public void printInvalidAction() {
+  static void printInvalidAction() {
     System.out.println("Invalid choice.");
   }
 
-  public void printLine(String prompt) {
+  static void printLine(String prompt) {
     System.out.print(prompt);
   }
 
-  public void promptAuthorOptions(AuthorManager authorManager, Author activeAuthor) {
+  static void promptAuthorOptions(AuthorManager authorManager, Author activeAuthor) {
     final String Reset = "\u001B[0m";
     final String Green = "\u001B[32m";
 
@@ -130,13 +125,13 @@ public class ConsoleView {
     System.out.print("> ");
   }
 
-  public void promptAuthorPicker(AuthorManager authorManager) {
+  static void promptAuthorPicker(AuthorManager authorManager) {
     authorManager.getAuthors().forEach(System.out::println);
     System.out.println("none: exit author picker");
     System.out.print("> ");
   }
 
-  public void printStatistics(EntryManager entryManager) {
+  static void printStatistics(EntryManager entryManager) {
     Statistic stat = entryManager.getStatistic();
     System.out.println("Entries this month: " + stat.getEntriesThisMonth());
     System.out.println("All tag count: ");

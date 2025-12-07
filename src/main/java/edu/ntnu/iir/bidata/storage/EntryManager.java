@@ -14,7 +14,11 @@ public class EntryManager {
    */
   private final HashMap<Integer, Entry> entryMap = new HashMap<>();
 
-  private final Statistic stat = new Statistic();
+  Statistic stat;
+
+  public EntryManager(Statistic stat) {
+    this.stat = stat;
+  }
 
   /**
    * The key of the entries.
@@ -90,7 +94,7 @@ public class EntryManager {
    */
 
   public HashMap<Integer, Entry> getDiary() {
-    return new HashMap<Integer, Entry>(entryMap);
+    return new HashMap<>(entryMap);
   }
 
 // TODO: make immutable copies for authormanager and entrymanager.

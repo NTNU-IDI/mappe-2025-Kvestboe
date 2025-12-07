@@ -25,7 +25,7 @@ public class StatisticTest {
   void testStatisticGetters() {
 
     assertEquals(
-        new HashMap<Author, Integer>(),
+        new HashMap<String, Integer>(),
         statistic.getAuthorCount(),
         "Author entry count should be an empty HashMap"
     );

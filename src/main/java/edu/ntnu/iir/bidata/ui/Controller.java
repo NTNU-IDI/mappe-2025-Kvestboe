@@ -1,16 +1,19 @@
 package edu.ntnu.iir.bidata.ui;
 
+import static edu.ntnu.iir.bidata.ui.ConsoleView.*;
+
 import edu.ntnu.iir.bidata.model.Author;
+import edu.ntnu.iir.bidata.model.Statistic;
 import edu.ntnu.iir.bidata.storage.AuthorManager;
 import edu.ntnu.iir.bidata.storage.EntryManager;
 import java.util.Scanner;
 
 public class Controller {
+  Statistic statistic;
 
   AuthorManager authorManager;
   EntryManager entryManager;
 
-  ConsoleView view;
   ConsoleInput input;
 
   AuthorController authorController;
@@ -27,15 +30,16 @@ public class Controller {
    * This method will initialize the diary, make objects of different classes.
    */
   public void initialize() {
+    statistic  = new Statistic();
+
     authorManager = new AuthorManager();
-    entryManager = new EntryManager();
+    entryManager = new EntryManager(statistic);
 
-    view = new ConsoleView();
-    input = new ConsoleInput(new Scanner(System.in), view);
+    input = new ConsoleInput(new Scanner(System.in));
 
-    authorController = new AuthorController(view, input);
-    entryController = new EntryController(authorController, view, input);
-    searchController = new SearchController(authorController, input, view, entryController);
+    authorController = new AuthorController(input);
+    entryController = new EntryController(authorController,  input);
+    searchController = new SearchController(authorController, input,  entryController);
 
     author = authorController.addAuthor(authorManager);
 
@@ -46,14 +50,13 @@ public class Controller {
    */
   public void start() {
 
-    if (authorManager != null && entryManager != null && view != null && input != null
+    if (authorManager != null && entryManager != null && input != null
         && authorController != null && entryController!= null && author != null) {
       boolean runProgram = true;
 
       while (runProgram) {
         assert entryManager != null;
-        view.promptForMenuAction(entryManager);
-        //String menuChoice = input.readLine(""); try this when finished
+        promptForMenuAction(entryManager);
         String menuChoice = input.read();
 
         switch (menuChoice) {
@@ -68,11 +71,11 @@ public class Controller {
             }
           }
 
-          case "stat" -> view.printStatistics(entryManager);
+          case "stat" -> printStatistics(entryManager);
 
           case "exit" -> runProgram = false;
 
-          default -> view.printInvalidAction();
+          default -> printInvalidAction();
         }
       }
 

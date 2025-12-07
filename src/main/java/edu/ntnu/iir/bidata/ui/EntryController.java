@@ -1,5 +1,7 @@
 package edu.ntnu.iir.bidata.ui;
 
+import static edu.ntnu.iir.bidata.ui.ConsoleView.*;
+
 import edu.ntnu.iir.bidata.model.Author;
 import edu.ntnu.iir.bidata.model.Entry;
 import edu.ntnu.iir.bidata.storage.AuthorManager;
@@ -10,12 +12,10 @@ import java.util.ArrayList;
 public class EntryController {
 
   AuthorController authorController;
-  ConsoleView view;
   ConsoleInput input;
 
-  public EntryController(AuthorController authorController, ConsoleView view, ConsoleInput input) {
+  public EntryController(AuthorController authorController, ConsoleInput input) {
     this.authorController =  authorController;
-    this.view = view;
     this.input = input;
   }
 
@@ -51,7 +51,7 @@ public class EntryController {
           running = false;
         }
         case "none" -> running = false;
-        default -> view.printInvalidAction();
+        default -> printInvalidAction();
       }
     }
     entryManager.updateEntry(key, entry);
@@ -65,7 +65,7 @@ public class EntryController {
    * @return the choice of the user that they wish to edit
    */
   private String editMenu(Entry entry) {
-    view.promptForEditAction(entry);
+    promptForEditAction(entry);
     return input.read();
 
   }
@@ -82,7 +82,7 @@ public class EntryController {
     if (choice) {
       entryManager.deleteEntry(entry);
     } else {
-      view.printLine("Entry was not deleted.");
+      printLine("Entry was not deleted.");
     }
 
   }
@@ -97,9 +97,9 @@ public class EntryController {
     Author author = authorController.authorOptions(authorManager, entry.getAuthor());
     if (author != null) {
       entry.setAuthor(author);
-      view.printLine("Author was updated.\n");
+      printLine("Author was updated.\n");
     } else {
-      view.printLine("Author was not updated.\n");
+      printLine("Author was not updated.\n");
     }
 
   }
@@ -113,9 +113,9 @@ public class EntryController {
     String newTitle = input.readLine("New title, \"none\" to not change: ");
     if (!newTitle.equals("none")) {
       entry.setTitle(newTitle);
-      view.printLine("Changed the title.\n");
+      printLine("Changed the title.\n");
     } else {
-      view.printLine("Did not change title.\n");
+      printLine("Did not change title.\n");
     }
 
   }
@@ -126,12 +126,12 @@ public class EntryController {
    * @param entry entry to be edited
    */
   private void editTags(Entry entry) {
-    view.promptForTagAction();
+    promptForTagAction();
     String choice = input.read();
     switch (choice) {
       case "add" -> addTags(entry);
       case "remove" -> removeTags(entry);
-      default -> view.printLine("No option matches \"" + choice + "\", going back.");
+      default -> printLine("No option matches \"" + choice + "\", going back.");
     }
 
   }
@@ -146,7 +146,7 @@ public class EntryController {
     if (newDate != null) {
       entry.setDate(newDate);
     } else {
-      view.printLine("Did not change date.\n");
+      printLine("Did not change date.\n");
     }
 
   }
@@ -162,11 +162,11 @@ public class EntryController {
     while (running) {
       String choice = contentMenu();
       switch (choice) {
-        case "read" -> view.printLine(entry.getContent());
+        case "read" -> printLine(entry.getContent());
         case "write" -> writeContent(entry);
         case "add" -> addContent(entry);
         case "none" -> running = false;
-        default  -> view.printInvalidAction();
+        default  -> printInvalidAction();
 
       }
     }
@@ -180,7 +180,7 @@ public class EntryController {
    * @return the choice of the author
    */
   private String contentMenu() {
-    view.promptForContentAction();
+    promptForContentAction();
     return input.read();
   }
 

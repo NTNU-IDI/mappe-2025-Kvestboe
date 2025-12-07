@@ -29,19 +29,19 @@ public class EntrySort {
     return sortedEntries;
   }
 
-  public HashMap<Integer, Entry> searchTitle(HashMap<Integer, Entry> diary, String title) {
+  public static HashMap<Integer, Entry> searchTitle(HashMap<Integer, Entry> diary, String title) {
     return searchEntries(diary, e -> e.getTitle().contains(title));
   }
 
-  public HashMap<Integer, Entry> searchTag(HashMap<Integer, Entry> diary, String tag) {
+  public static HashMap<Integer, Entry> searchTag(HashMap<Integer, Entry> diary, String tag) {
     return searchEntries(diary, e -> e.getTags().contains(tag));
   }
 
-  public HashMap<Integer, Entry> searchAuthor(HashMap<Integer, Entry> diary, Author author) {
+  public static HashMap<Integer, Entry> searchAuthor(HashMap<Integer, Entry> diary, Author author) {
     return searchEntries(diary, e -> e.getAuthor().getName().equals(author.getName()));
   }
 
-  public HashMap<Integer, Entry> searchDate(HashMap<Integer, Entry> diary, LocalDate date) {
+  public static HashMap<Integer, Entry> searchDate(HashMap<Integer, Entry> diary, LocalDate date) {
     return searchEntries(diary, e -> e.getDate().isEqual(date));
   }
 
@@ -54,7 +54,7 @@ public class EntrySort {
    * @param end
    * @return
    */
-  public HashMap<Integer, Entry> searchPeriod(HashMap<Integer, Entry> diary,
+  public static HashMap<Integer, Entry> searchPeriod(HashMap<Integer, Entry> diary,
       LocalDate start, LocalDate end) {
     return searchEntries(diary, e -> (!e.getDate().isAfter(start) && !e.getDate().isBefore(end)));
   }

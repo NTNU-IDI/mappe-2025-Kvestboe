@@ -1,15 +1,16 @@
 package edu.ntnu.iir.bidata.ui;
 
+import static edu.ntnu.iir.bidata.ui.ConsoleView.*;
+
 import edu.ntnu.iir.bidata.model.Author;
 import edu.ntnu.iir.bidata.storage.AuthorManager;
 
+
 public class AuthorController {
 
-  ConsoleView view;
   ConsoleInput input;
 
-  public AuthorController(ConsoleView view,  ConsoleInput input) {
-    this.view = view;
+  public AuthorController(ConsoleInput input) {
     this.input = input;
   }
 
@@ -25,7 +26,7 @@ public class AuthorController {
       } else if (choice.equals("none")) {
         running = false;
       } else {
-        view.printInvalidAction();
+        ConsoleView.printInvalidAction();
       }
     }
 
@@ -34,28 +35,28 @@ public class AuthorController {
   }
 
   public Author addAuthor(AuthorManager authorManager) {
-    view.printLine("Enter name: ");
+    printLine("Enter name: ");
     String name = input.read();
     authorManager.addAuthor(name);
     return authorManager.getAuthor(name);
   }
 
   private String authorMenu(AuthorManager authorManager, Author activeAuthor) {
-    view.promptAuthorOptions(authorManager, activeAuthor);
+    promptAuthorOptions(authorManager, activeAuthor);
     return input.read();
 
   }
 
   public Author pickAuthor(AuthorManager authorManager) {
     while (true) {
-      view.promptAuthorPicker(authorManager);
+      promptAuthorPicker(authorManager);
       String choice = input.read();
       if (authorManager.getAuthors().contains(choice)) {
         return authorManager.getAuthor(choice);
       } else if (choice.equals("none")) {
         return null;
       } else {
-        view.printInvalidAction();
+        printInvalidAction();
       }
     }
   }
