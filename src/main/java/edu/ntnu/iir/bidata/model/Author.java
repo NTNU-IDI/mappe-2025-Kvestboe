@@ -10,7 +10,7 @@ public class Author {
   /**
    * The name of the author.
    */
-  private final String Name;
+  private final String name;
 
   /**
    * Constructor for author class.
@@ -18,7 +18,7 @@ public class Author {
    * @param name the name of the author
    */
   public Author(String name) {
-    this.Name = name;
+    this.name = name;
   }
 
   /**
@@ -27,7 +27,7 @@ public class Author {
    * @return name of author
    */
   public String getName() {
-    return Name;
+    return name;
   }
 
 }

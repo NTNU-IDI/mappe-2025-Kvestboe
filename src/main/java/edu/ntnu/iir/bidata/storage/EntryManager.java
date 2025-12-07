@@ -12,7 +12,7 @@ public class EntryManager {
   /**
    * The entries in the diary.
    */
-  private final HashMap<Integer, Entry> EntryMap = new HashMap<>();
+  private final HashMap<Integer, Entry> entryMap = new HashMap<>();
 
   private final Statistic stat = new Statistic();
 
@@ -28,7 +28,7 @@ public class EntryManager {
    * @return the id of the entry added
    */
   public int addEntry(Entry entry) {
-    EntryMap.put(key, entry);
+    entryMap.put(key, entry);
     stat.incrementAuthorCount(entry.getAuthor().getName());
     for (String tag : entry.getTags()) {
       stat.incrementTagCount(tag);
@@ -49,20 +49,20 @@ public class EntryManager {
       stat.decrementTagCount(tag);
     }
     stat.decrementEntriesThisMonth(entry.getDate());
-    for (int key : EntryMap.keySet()) {
-      if (EntryMap.get(key) == entry) {
-        EntryMap.remove(key);
+    for (int key : entryMap.keySet()) {
+      if (entryMap.get(key) == entry) {
+        entryMap.remove(key);
         break;
       }
     }
   }
 
   public void updateEntry(int key, Entry newEntry) {
-    Entry oldEntry = EntryMap.get(key);
+    Entry oldEntry = entryMap.get(key);
     stat.decrementAuthorCount(oldEntry.getAuthor().getName());
     stat.decrementEntriesThisMonth(oldEntry.getDate());
     oldEntry.getTags().forEach(tag -> stat.decrementTagCount(tag));
-    EntryMap.put(key, newEntry);
+    entryMap.put(key, newEntry);
     stat.incrementAuthorCount(newEntry.getAuthor().getName());
     stat.incrementEntriesThisMonth(newEntry.getDate());
     newEntry.getTags().forEach(tag -> stat.incrementTagCount(tag));
@@ -80,7 +80,7 @@ public class EntryManager {
    * @return an entry
    */
   public Entry getEntry(int key) {
-    return EntryMap.get(key);
+    return entryMap.get(key);
   }
 
   /**
@@ -90,7 +90,7 @@ public class EntryManager {
    */
 
   public HashMap<Integer, Entry> getDiary() {
-    return new HashMap<Integer, Entry>(EntryMap);
+    return new HashMap<Integer, Entry>(entryMap);
   }
 
 // TODO: make immutable copies for authormanager and entrymanager.

@@ -46,8 +46,8 @@ public class Controller {
    */
   public void start() {
 
-    if (authorManager != null || entryManager != null || view != null || input != null
-        || authorController != null || entryController!= null || author != null) {
+    if (authorManager != null && entryManager != null && view != null && input != null
+        && authorController != null && entryController!= null && author != null) {
       boolean runProgram = true;
 
       while (runProgram) {

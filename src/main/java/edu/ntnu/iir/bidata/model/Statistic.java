@@ -11,12 +11,12 @@ public class Statistic {
   /**
    * This attribute has the number of entries per author.
    */
-  private final HashMap<String, Integer> AuthorCount = new HashMap<>();
+  private final HashMap<String, Integer> authorCount = new HashMap<>();
 
   /**
    * Most occuring tags.
    */
-  private final HashMap<String, Integer> TagCount =  new HashMap<>();
+  private final HashMap<String, Integer> tagCount =  new HashMap<>();
 
   /**
    * Number of entries this month.
@@ -30,7 +30,7 @@ public class Statistic {
    * @param
    */
   public void incrementAuthorCount(String authorName) {
-    AuthorCount.put(authorName, AuthorCount.getOrDefault(authorName, 0) + 1);
+    authorCount.put(authorName, authorCount.getOrDefault(authorName, 0) + 1);
   }
 
   /**
@@ -39,7 +39,7 @@ public class Statistic {
    * @param tag tag is the to be incremented
    */
   public void incrementTagCount(String tag) {
-    TagCount.put(tag, TagCount.getOrDefault(tag, 0) + 1);
+    tagCount.put(tag, tagCount.getOrDefault(tag, 0) + 1);
   }
 
   /**
@@ -60,7 +60,7 @@ public class Statistic {
    * @param
    */
   public void decrementAuthorCount(String authorName) {
-    AuthorCount.put(authorName, AuthorCount.getOrDefault(authorName, 0) - 1);
+    authorCount.put(authorName, authorCount.getOrDefault(authorName, 0) - 1);
   }
 
   /**
@@ -69,7 +69,7 @@ public class Statistic {
    * @param tag tag to be decremented
    */
   public void decrementTagCount(String tag) {
-    TagCount.put(tag, TagCount.getOrDefault(tag, 0) - 1);
+    tagCount.put(tag, tagCount.getOrDefault(tag, 0) - 1);
   }
 
   /**
@@ -88,7 +88,7 @@ public class Statistic {
    * @return the entry count
    */
   public HashMap<String, Integer> getAuthorCount() {
-    return AuthorCount;
+    return authorCount;
   }
 
   /**
@@ -97,7 +97,7 @@ public class Statistic {
    * @return the tag count
    */
   public HashMap<String, Integer> getTagCount() {
-    return TagCount;
+    return tagCount;
   }
 
   /**
