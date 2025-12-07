@@ -1,6 +1,8 @@
 package edu.ntnu.iir.bidata.ui;
 
+import edu.ntnu.iir.bidata.model.Author;
 import edu.ntnu.iir.bidata.model.Entry;
+import edu.ntnu.iir.bidata.storage.AuthorManager;
 import edu.ntnu.iir.bidata.storage.EntryManager;
 import java.util.HashMap;
 
@@ -65,6 +67,14 @@ public class ConsoleView {
 
   }
 
+  public void promptConfirmationAction() {
+    System.out.print("Are you sure (yes/no): ");
+  }
+
+  public void promptMakeDate() {
+    System.out.print("Write in the date in the format \"YYYY-MM-DD\": ");
+  }
+
   public void printEntries(HashMap<Integer, Entry> entries) {
     for (int key : entries.keySet()) {
       System.out.println(key + ": " + entries.get(key));
@@ -75,4 +85,27 @@ public class ConsoleView {
   public void printInvalidAction() {
     System.out.println("Invalid choice.");
   }
+
+  public void printLine(String prompt) {
+    System.out.print(prompt);
+  }
+
+  public void promptAuthorOptions(AuthorManager authorManager, Author activeAuthor) {
+    final String Reset = "\u001B[0m";
+    final String Green = "\u001B[32m";
+
+    StringBuilder authorString = new StringBuilder();
+
+    for (String authorName : authorManager.getAuthors()) {
+      if (authorName.equals(activeAuthor.getName())) {
+        System.out.println(Green + authorName + Reset);
+      } else {
+        System.out.println(authorName);
+      }
+    }
+    System.out.println("new: make new user");
+    System.out.println("none: exit user manager");
+    System.out.print("> ");
+  }
+
 }

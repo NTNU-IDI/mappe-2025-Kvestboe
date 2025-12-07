@@ -2,6 +2,7 @@ package edu.ntnu.iir.bidata.storage;
 
 import edu.ntnu.iir.bidata.model.Entry;
 import edu.ntnu.iir.bidata.model.Statistic;
+import java.util.Collections;
 import java.util.HashMap;
 
 /**
@@ -60,6 +61,18 @@ public class EntryManager {
     }
   }
 
+  public void updateEntry(int key, Entry newEntry) {
+    Entry oldEntry = EntryMap.get(key);
+    stat.decrementAuthorCount(oldEntry.getAuthor().getName());
+    stat.decrementEntriesThisMonth(oldEntry.getDate());
+    oldEntry.getTags().forEach(tag -> stat.decrementTagCount(tag));
+    EntryMap.put(key, newEntry);
+    stat.incrementAuthorCount(newEntry.getAuthor().getName());
+    stat.incrementEntriesThisMonth(newEntry.getDate());
+    newEntry.getTags().forEach(tag -> stat.incrementTagCount(tag));
+
+  }
+
   public Statistic getStatistic() {
     return stat;
   }
@@ -81,6 +94,10 @@ public class EntryManager {
    */
   public HashMap<Integer, Entry> getEntries() {
     return EntryMap;
+  }
+
+  public HashMap<Integer, Entry> getDiary() {
+    return (HashMap<Integer, Entry>) Collections.unmodifiableMap(EntryMap);
   }
 
 // TODO: change the different searches to entrysort search in IoHandler.

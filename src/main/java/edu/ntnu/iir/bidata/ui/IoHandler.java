@@ -90,16 +90,6 @@ public class IoHandler {
    */
   private String editMenu(Entry entry) {
     view.promptForEditAction(entry);
-//    System.out.println("Is there anything you wish to edit?");
-//    System.out.println("author: " + entry.getAuthor().getName());
-//    System.out.println("title: " + entry.getTitle());
-//    System.out.println("tags: " + entry.getTagsString());
-//    System.out.println("date: " + entry.getDateString());
-//    System.out.println("content: view the content or edit it");
-//    System.out.println("delete: delete the diary entry");
-//    System.out.println("none: go back");
-//    System.out.print("> ");
-
     return input.nextLine();
 
   }
@@ -196,15 +186,14 @@ public class IoHandler {
     try {
       LocalDate newDate = makeDate();
       if (newDate != null) {
-        //stat.decrementEntriesThisMonth(entry.getDate());
         entry.setDate(newDate);
-        //stat.incrementEntriesThisMonth(newDate);
       }
     } catch (Exception e) {
       System.out.println("NaN");
     }
 
   }
+
 
   /**
    * This method is the logic for editing the content an entry.
@@ -220,7 +209,7 @@ public class IoHandler {
         case "write" -> writeContent(entry);
         case "add" -> addContent(entry);
         case "none" -> running = false;
-        default  -> System.out.println("Invalid choice.");
+        default  -> view.printInvalidAction();
 
       }
     }
