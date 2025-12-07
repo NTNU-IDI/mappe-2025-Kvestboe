@@ -62,7 +62,7 @@ public class EntryManagerTest {
 
     assertEquals(
         entryManagerDummy,
-        entryManager.getEntries(),
+        entryManager.getDiary(),
         "Entry manager dummy should be the same as the actual one."
     );
   }
@@ -133,7 +133,7 @@ public class EntryManagerTest {
 
     assertEquals(
         entryManagerDummy,
-        entryManager.getEntries(),
+        entryManager.getDiary(),
         "Entry manager dummy should be the same as the actual one."
     );
   }

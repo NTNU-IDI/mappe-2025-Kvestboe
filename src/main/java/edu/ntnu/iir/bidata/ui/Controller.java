@@ -1,10 +1,8 @@
 package edu.ntnu.iir.bidata.ui;
 
 import edu.ntnu.iir.bidata.model.Author;
-import edu.ntnu.iir.bidata.model.Entry;
 import edu.ntnu.iir.bidata.storage.AuthorManager;
 import edu.ntnu.iir.bidata.storage.EntryManager;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Controller {
@@ -37,7 +35,7 @@ public class Controller {
 
     authorController = new AuthorController(view, input);
     entryController = new EntryController(authorController, view, input);
-    searchController = new SearchController(input, view, entryController);
+    searchController = new SearchController(authorController, input, view, entryController);
 
     author = authorController.addAuthor(authorManager);
 
@@ -61,7 +59,7 @@ public class Controller {
         switch (menuChoice) {
           case "new" -> entryController.createEntry(entryManager, author, authorManager);
 
-          case "prior" -> searchController.searchEntries(entryManager,authorManager, author);
+          case "prior" -> searchController.searchEntries(entryManager,authorManager);
 
           case "author" -> {
             Author newAuthor = authorController.authorOptions(authorManager, author);

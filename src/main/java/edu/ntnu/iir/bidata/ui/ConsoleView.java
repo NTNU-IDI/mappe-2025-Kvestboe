@@ -15,7 +15,7 @@ public class ConsoleView {
    * This method will print the main menu.
    */
   public void promptForMenuAction(EntryManager entryManager) {
-    if (entryManager.getEntries().isEmpty()) {
+    if (entryManager.getDiary().isEmpty()) {
       System.out.println("Select your option:");
       System.out.println("new: new entry.");
       System.out.println("author: change author.");
@@ -57,7 +57,7 @@ public class ConsoleView {
 
   }
 
-  public void promptForTagAction(Entry entry) {
+  public void promptForTagAction() {
 
     System.out.println("What do you wish to do with the tags.");
     System.out.println("add: add new tags");
@@ -79,7 +79,7 @@ public class ConsoleView {
 
   }
 
-  public void promptForDateAction(Entry entry) {
+  public void promptForDateAction() {
 
 
   }
@@ -92,9 +92,16 @@ public class ConsoleView {
     System.out.print("Write in the date in the format \"YYYY-MM-DD\": ");
   }
 
-  public void printEntries(HashMap<Integer, Entry> entries) {
-    for (int key : entries.keySet()) {
-      System.out.println(key + ": " + entries.get(key));
+  public boolean printEntries(HashMap<Integer, Entry> entries) {
+    if (entries.isEmpty()) {
+      System.out.println("No entries found.");
+      return false;
+    } else {
+      for (int key : entries.keySet()) {
+        System.out.println(key + ": " + entries.get(key).getTitle());
+      }
+      return true;
+
     }
 
   }
@@ -111,8 +118,6 @@ public class ConsoleView {
     final String Reset = "\u001B[0m";
     final String Green = "\u001B[32m";
 
-    StringBuilder authorString = new StringBuilder();
-
     for (String authorName : authorManager.getAuthors()) {
       if (authorName.equals(activeAuthor.getName())) {
         System.out.println(Green + authorName + Reset);
@@ -122,6 +127,12 @@ public class ConsoleView {
     }
     System.out.println("new: make new user");
     System.out.println("none: exit user manager");
+    System.out.print("> ");
+  }
+
+  public void promptAuthorPicker(AuthorManager authorManager) {
+    authorManager.getAuthors().forEach(System.out::println);
+    System.out.println("none: exit author picker");
     System.out.print("> ");
   }
 

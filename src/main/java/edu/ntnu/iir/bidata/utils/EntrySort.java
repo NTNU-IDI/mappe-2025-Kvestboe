@@ -56,7 +56,7 @@ public class EntrySort {
    */
   public HashMap<Integer, Entry> searchPeriod(HashMap<Integer, Entry> diary,
       LocalDate start, LocalDate end) {
-    return searchEntries(diary, e -> !e.getDate().isAfter(start) && !e.getDate().isBefore(end));
+    return searchEntries(diary, e -> (!e.getDate().isAfter(start) && !e.getDate().isBefore(end)));
   }
 
 }

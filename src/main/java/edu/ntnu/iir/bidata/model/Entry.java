@@ -162,4 +162,15 @@ public class Entry {
     date = localDate;
   }
 
+  /**
+   * Creates a copy of this entry.
+   *
+   * @return a new Entry object with the same values
+   */
+  public Entry copy() {
+    Entry copy = new Entry(this.author, this.title, new ArrayList<>(this.tags), this.content);
+    copy.setDate(this.date);
+    return copy;
+  }
+
 }

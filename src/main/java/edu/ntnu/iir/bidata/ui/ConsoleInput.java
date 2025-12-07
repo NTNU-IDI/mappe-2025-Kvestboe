@@ -2,8 +2,6 @@ package edu.ntnu.iir.bidata.ui;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleInput {
@@ -35,7 +33,7 @@ public class ConsoleInput {
       view.printInvalidAction();
       return -1;
     }
-    return input.nextInt();
+    return choice;
   }
 
   public LocalDate readDate() {
@@ -52,9 +50,10 @@ public class ConsoleInput {
 
   public boolean readConfirmation() {
     view.promptConfirmationAction();
-    if (input.nextLine().equals("yes")) {
+    String confirmation = input.nextLine();
+    if (confirmation.equals("yes")) {
       return true;
-    } else if  (input.nextLine().equals("no")) {
+    } else if (confirmation.equals("no")) {
       return false;
     } else {
       view.printInvalidAction();

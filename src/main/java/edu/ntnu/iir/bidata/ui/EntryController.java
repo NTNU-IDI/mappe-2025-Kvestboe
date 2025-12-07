@@ -27,14 +27,15 @@ public class EntryController {
     String content = input.readMultiline();
 
     Entry diary= new Entry(author, title, tags, content);
-    int entry = entryManager.addEntry(diary);
+    int key = entryManager.addEntry(diary);
 
-    editDiary(entryManager.getEntry(entry), authorManager, entryManager);
+    editDiary(key, authorManager, entryManager);
 
   }
 
 
-  public void editDiary(Entry entry, AuthorManager authorManager, EntryManager entryManager) {
+  public void editDiary(int key, AuthorManager authorManager, EntryManager entryManager) {
+    Entry entry = entryManager.getEntry(key).copy();
     boolean running = true;
 
     while (running) {
@@ -53,6 +54,8 @@ public class EntryController {
         default -> view.printInvalidAction();
       }
     }
+    entryManager.updateEntry(key, entry);
+
   }
 
   /**
@@ -107,8 +110,7 @@ public class EntryController {
    * @param entry entry is the entry to be edited
    */
   private void editTitle(Entry entry) {
-    view.promptForTagAction(entry);
-    String newTitle = input.read();
+    String newTitle = input.readLine("New title, \"none\" to not change: ");
     if (!newTitle.equals("none")) {
       entry.setTitle(newTitle);
       view.printLine("Changed the title.\n");
@@ -124,7 +126,7 @@ public class EntryController {
    * @param entry entry to be edited
    */
   private void editTags(Entry entry) {
-    view.promptForTagAction(entry);
+    view.promptForTagAction();
     String choice = input.read();
     switch (choice) {
       case "add" -> addTags(entry);
@@ -140,7 +142,6 @@ public class EntryController {
    * @param entry entry to be edited
    */
   private void editDate(Entry entry) {
-    view.promptForDateAction(entry);
     LocalDate newDate = input.readDate();
     if (newDate != null) {
       entry.setDate(newDate);

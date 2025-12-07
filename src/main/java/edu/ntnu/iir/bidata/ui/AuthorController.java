@@ -2,7 +2,6 @@ package edu.ntnu.iir.bidata.ui;
 
 import edu.ntnu.iir.bidata.model.Author;
 import edu.ntnu.iir.bidata.storage.AuthorManager;
-import java.util.ArrayList;
 
 public class AuthorController {
 
@@ -34,16 +33,31 @@ public class AuthorController {
 
   }
 
-  private String authorMenu(AuthorManager authorManager, Author activeAuthor) {
-    view.promptAuthorOptions(authorManager, activeAuthor);
-    return input.read();
-
-  }
-
   public Author addAuthor(AuthorManager authorManager) {
     view.printLine("Enter name: ");
     String name = input.read();
     authorManager.addAuthor(name);
     return authorManager.getAuthor(name);
   }
+
+  private String authorMenu(AuthorManager authorManager, Author activeAuthor) {
+    view.promptAuthorOptions(authorManager, activeAuthor);
+    return input.read();
+
+  }
+
+  public Author pickAuthor(AuthorManager authorManager) {
+    while (true) {
+      view.promptAuthorPicker(authorManager);
+      String choice = input.read();
+      if (authorManager.getAuthors().contains(choice)) {
+        return authorManager.getAuthor(choice);
+      } else if (choice.equals("none")) {
+        return null;
+      } else {
+        view.printInvalidAction();
+      }
+    }
+  }
+
 }

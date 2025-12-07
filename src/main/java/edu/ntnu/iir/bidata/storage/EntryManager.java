@@ -2,16 +2,12 @@ package edu.ntnu.iir.bidata.storage;
 
 import edu.ntnu.iir.bidata.model.Entry;
 import edu.ntnu.iir.bidata.model.Statistic;
-import java.util.Collections;
 import java.util.HashMap;
 
 /**
  * The EntryManager class represents the diary in the application, where the entries are saved.
  */
 public class EntryManager {
-  // loading which diaries is related to user
-  // handle sorting and filtering entries
-  // will handle diary entries from model/Diary entry
 
   /**
    * The entries in the diary.
@@ -92,16 +88,11 @@ public class EntryManager {
    *
    * @return all entries.
    */
-  public HashMap<Integer, Entry> getEntries() {
-    return EntryMap;
-  }
 
   public HashMap<Integer, Entry> getDiary() {
-    return (HashMap<Integer, Entry>) Collections.unmodifiableMap(EntryMap);
+    return new HashMap<Integer, Entry>(EntryMap);
   }
 
-// TODO: change the different searches to entrysort search in IoHandler.
-// TODO: make IoHandler into multiple classes.
 // TODO: make immutable copies for authormanager and entrymanager.
 // TODO: edit diaries in a different way that supports this.
 
