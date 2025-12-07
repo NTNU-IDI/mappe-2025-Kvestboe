@@ -1,5 +1,7 @@
 package edu.ntnu.iir.bidata.ui;
 
+import static java.util.Arrays.stream;
+
 import edu.ntnu.iir.bidata.model.Author;
 import edu.ntnu.iir.bidata.model.Entry;
 import edu.ntnu.iir.bidata.model.Statistic;
@@ -8,8 +10,12 @@ import edu.ntnu.iir.bidata.storage.EntryManager;
 import edu.ntnu.iir.bidata.utils.EntrySort;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 // TODO: Make IoHandler into multiple classes, it is too long.
 // TODO: Make readme.
@@ -21,7 +27,6 @@ import java.util.Scanner;
 public class IoHandler {
 
   Scanner input = new Scanner(System.in);
-  Statistic stat = new Statistic();
 
   // this section will handle adding a new diary to the manager
 
@@ -38,18 +43,12 @@ public class IoHandler {
 
     System.out.print("Write in a tags (with a space between): ");
     ArrayList<String> tags = formatTags(input.nextLine());
-    for (String tag : tags) {
-      stat.incrementTagCount(tag);
-    }
 
     System.out.println("Write in the content of the diary: ");
     String content = inputContent();
 
     Entry diary = new Entry(author, title, tags, content);
     int entry = entryManager.addEntry(diary);
-    stat.incrementEntryCount(author);
-
-    stat.incrementEntriesThisMonth(LocalDate.now());
 
     editDiary(entryManager.getEntry(entry), authorManager, entryManager);
 
@@ -120,13 +119,6 @@ public class IoHandler {
     System.out.print("> ");
     String choice = input.nextLine();
     if (choice.equals("yes")) {
-      stat.decrementEntryCount(entry.getAuthor());
-
-      for (String tag : entry.getTags()) {
-        stat.decrementTagCount(tag);
-      }
-
-      stat.decrementEntriesThisMonth(entry.getDate());
       entryManager.deleteEntry(entry);
     } else {
       System.out.println("Went back.");
@@ -143,9 +135,9 @@ public class IoHandler {
   private void editUser(Entry entry, AuthorManager authorManager) {
     Author author = authorSetting(authorManager, entry.getAuthor());
     if (author != null) {
-      stat.decrementEntryCount(entry.getAuthor());
+      //stat.decrementAuthorCount(entry.getAuthor());
       entry.setAuthor(author);
-      stat.incrementEntryCount(author);
+      //stat.incrementAuthorCount(author);
       System.out.println("Changed the author");
     } else {
       System.out.println("Did not change author.");
@@ -205,9 +197,9 @@ public class IoHandler {
     try {
       LocalDate newDate = makeDate();
       if (newDate != null) {
-        stat.decrementEntriesThisMonth(entry.getDate());
+        //stat.decrementEntriesThisMonth(entry.getDate());
         entry.setDate(newDate);
-        stat.incrementEntriesThisMonth(newDate);
+        //stat.incrementEntriesThisMonth(newDate);
       }
     } catch (Exception e) {
       System.out.println("NaN");
@@ -289,7 +281,7 @@ public class IoHandler {
         System.out.println("Tag \"" + tag + "\" already exists.");
       } else {
         tags.add(tag);
-        stat.incrementTagCount(tag);
+        //stat.incrementTagCount(tag);
       }
     }
 
@@ -308,7 +300,7 @@ public class IoHandler {
     for (String tag : newTags) {
       if (tags.contains(tag)) {
         tags.remove(tag);
-        stat.decrementTagCount(tag);
+        //stat.decrementTagCount(tag);
       } else {
         System.out.println("No tags matches the tag \"" + tag + "\".");
       }
@@ -558,11 +550,17 @@ public class IoHandler {
   /**
    * This method is for printing out statistics to the user.
    */
-  public void statistics() {
+  public void statistics(EntryManager entryManager) {
+    Statistic stat = entryManager.getStatistic();
     System.out.println("Entries this month: " + stat.getEntriesThisMonth());
     System.out.println("All tag count: ");
-    for (String tag : stat.getTagCount().keySet()) {
-      System.out.println(tag + ": " + stat.getTagCount().get(tag));
+
+    List<Map.Entry<String, Integer>> topTags = stat.getTagCount().entrySet().stream()
+        .sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
+          .limit(3)
+            .toList();
+    for (Map.Entry<String, Integer> entry : topTags) {
+      System.out.println(entry.getKey() + ": " + entry.getValue());
     }
     System.out.println("All author count: ");
     for (Author author : stat.getAuthorCount().keySet()) {

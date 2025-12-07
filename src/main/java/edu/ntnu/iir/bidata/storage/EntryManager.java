@@ -2,6 +2,7 @@ package edu.ntnu.iir.bidata.storage;
 
 import edu.ntnu.iir.bidata.model.Author;
 import edu.ntnu.iir.bidata.model.Entry;
+import edu.ntnu.iir.bidata.model.Statistic;
 import java.time.LocalDate;
 import java.util.HashMap;
 
@@ -18,6 +19,8 @@ public class EntryManager {
    */
   private final HashMap<Integer, Entry> EntryMap = new HashMap<>();
 
+  private final Statistic stat = new Statistic();
+
   /**
    * The key of the entries.
    */
@@ -31,6 +34,11 @@ public class EntryManager {
    */
   public int addEntry(Entry entry) {
     EntryMap.put(key, entry);
+    stat.incrementAuthorCount(entry.getAuthor());
+    for (String tag : entry.getTags()) {
+      stat.incrementTagCount(tag);
+    }
+    stat.incrementEntriesThisMonth(entry.getDate());
     key++;
     return key - 1;
   }
@@ -41,11 +49,21 @@ public class EntryManager {
    * @param entry the entry to be deleted
    */
   public void deleteEntry(Entry entry) {
+    stat.decrementAuthorCount(entry.getAuthor());
+    for (String tag : entry.getTags()) {
+      stat.decrementTagCount(tag);
+    }
+    stat.decrementEntriesThisMonth(entry.getDate());
     for (int key : EntryMap.keySet()) {
       if (EntryMap.get(key) == entry) {
         EntryMap.remove(key);
+        break;
       }
     }
+  }
+
+  public Statistic getStatistic() {
+    return stat;
   }
 
   /**
@@ -67,26 +85,29 @@ public class EntryManager {
     return EntryMap;
   }
 
-  /**
-   * Getter for entries with title, if the entry contains(not equal) the title.
-   *
-   * @param title title of the tags
-   * @return all entries with the title
-   */
 
+// TODO: change the different searches to entrysort search in IoHandler.
+// TODO: make IoHandler into multiple classes.
+// TODO: make immutable copies for authormanager and entrymanager.
+// TODO: edit diaries in a different way that supports this.
 
-
-  public HashMap<Integer, Entry> searchTitle(String title) {
-    HashMap<Integer, Entry> diaries = new HashMap<>();
-    for (int key : EntryMap.keySet()) {
-      Entry entry = EntryMap.get(key);
-      if (entry.getTitle().contains(title)) {
-        diaries.put(key, entry);
-      }
-
-    }
-    return diaries;
-  }
+//  /**
+//   * Getter for entries with title, if the entry contains(not equal) the title.
+//   *
+//   * @param title title of the tags
+//   * @return all entries with the title
+//   */
+//  public HashMap<Integer, Entry> searchTitle(String title) {
+//    HashMap<Integer, Entry> diaries = new HashMap<>();
+//    for (int key : EntryMap.keySet()) {
+//      Entry entry = EntryMap.get(key);
+//      if (entry.getTitle().contains(title)) {
+//        diaries.put(key, entry);
+//      }
+//
+//    }
+//    return diaries;
+//  }
 
   /**
    * Getter for the entries with tag, if the entry tags contains(not equal) the tag.

@@ -29,7 +29,7 @@ public class Statistic {
    *
    * @param author author of the diary
    */
-  public void incrementEntryCount(Author author) {
+  public void incrementAuthorCount(Author author) {
     AuthorCount.put(author, AuthorCount.getOrDefault(author, 0) + 1);
   }
 
@@ -59,7 +59,7 @@ public class Statistic {
    *
    * @param author author to decrement
    */
-  public void decrementEntryCount(Author author) {
+  public void decrementAuthorCount(Author author) {
     AuthorCount.put(author, AuthorCount.getOrDefault(author, 0) - 1);
   }
 

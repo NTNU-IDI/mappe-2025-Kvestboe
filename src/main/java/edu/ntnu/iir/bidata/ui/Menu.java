@@ -75,7 +75,7 @@ public class Menu {
 
           case "author" -> checkUser();
 
-          case "stat" -> ioHandler.statistics();
+          case "stat" -> ioHandler.statistics(entryManager);
 
           case "exit" -> runProgram = false;
 

@@ -50,7 +50,7 @@ public class StatisticTest {
     HashMap<String, Integer> tagCount = new HashMap<>();
     tagCount.put("test", 1);
 
-    statistic.incrementEntryCount(author);
+    statistic.incrementAuthorCount(author);
     statistic.incrementTagCount("test");
     statistic.incrementEntriesThisMonth(date);
 
@@ -80,11 +80,11 @@ public class StatisticTest {
     HashMap<String, Integer> tagCount = new HashMap<>();
     tagCount.put("test", 0);
 
-    statistic.incrementEntryCount(author);
+    statistic.incrementAuthorCount(author);
     statistic.incrementTagCount("test");
     statistic.incrementEntriesThisMonth(date);
 
-    statistic.decrementEntryCount(author);
+    statistic.decrementAuthorCount(author);
     statistic.decrementTagCount("test");
     statistic.decrementEntriesThisMonth(date);
 
