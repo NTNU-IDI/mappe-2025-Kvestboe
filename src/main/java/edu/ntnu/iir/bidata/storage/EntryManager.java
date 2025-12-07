@@ -97,8 +97,4 @@ public class EntryManager {
     return new HashMap<>(entryMap);
   }
 
-// TODO: make immutable copies for authormanager and entrymanager.
-// TODO: edit diaries in a different way that supports this.
-
-
 }
