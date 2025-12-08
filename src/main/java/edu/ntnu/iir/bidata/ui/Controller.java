@@ -8,6 +8,10 @@ import edu.ntnu.iir.bidata.storage.AuthorManager;
 import edu.ntnu.iir.bidata.storage.EntryManager;
 import java.util.Scanner;
 
+/**
+ * Controller for the diary application.
+ * This represents the flow of the main menu for the diary.
+ */
 public class Controller {
   Statistic statistic;
 
@@ -20,14 +24,13 @@ public class Controller {
   EntryController entryController;
   SearchController searchController;
 
-
-
   Author author;
 
-//  IoHandler ioHandler = null;
-
   /**
-   * This method will initialize the diary, make objects of different classes.
+   * Initialize the diary application.
+   * Creates the Statistic, AuthorManager, EntryManager, ConsoleInput and
+   * controller instances, then prompts the user to add the initial author.
+   * This method must be called before start() when components are not yet set up.
    */
   public void initialize() {
     statistic  = new Statistic();
@@ -46,7 +49,9 @@ public class Controller {
   }
 
   /**
-   * This method will start the diary program. Makes the flow of the program.
+   * Start the diary program and run the main loop.
+   * This method repeatedly show the main menu,
+   * reads the user's choice and directs the flow.
    */
   public void start() {
 
@@ -84,6 +89,5 @@ public class Controller {
     }
 
   }
-
 
 }

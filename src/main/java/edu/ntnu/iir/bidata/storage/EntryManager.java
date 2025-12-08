@@ -61,6 +61,13 @@ public class EntryManager {
     }
   }
 
+  /**
+   * This method acts as a setter and updates the statistics.
+   * Although the statistic becomes an aggregation, it calls for easier management of stats.
+   *
+   * @param key key value of the entry
+   * @param newEntry the new entry to replace the old one
+   */
   public void updateEntry(int key, Entry newEntry) {
     Entry oldEntry = entryMap.get(key);
     stat.decrementAuthorCount(oldEntry.getAuthor().getName());
@@ -73,6 +80,11 @@ public class EntryManager {
 
   }
 
+  /**
+   * Getter for the statistics.
+   *
+   * @return statistic object
+   */
   public Statistic getStatistic() {
     return stat;
   }

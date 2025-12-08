@@ -11,11 +11,11 @@ public class EntrySort {
 
   /**
    * This method was inspired by geeks for geeks
-   * https://www.geeksforgeeks.org/java/java-8-predicate-with-examples/
+   * <a href="https://www.geeksforgeeks.org/java/java-8-predicate-with-examples/">GeeksforGeeks</a>
    * and was explained how to use in my project with ai.
    *
-   * @param diary
-   * @return
+   * @param diary the diary
+   * @return a sorted list based on the condition
    */
   static HashMap<Integer, Entry> searchEntries(HashMap<Integer, Entry> diary,
       Predicate<Entry> condition) {
@@ -29,14 +29,35 @@ public class EntrySort {
     return sortedEntries;
   }
 
+  /**
+   * This method sorts based on if the title is contained.
+   *
+   * @param diary the diary
+   * @param title title to search by
+   * @return sorted list
+   */
   public static HashMap<Integer, Entry> searchTitle(HashMap<Integer, Entry> diary, String title) {
     return searchEntries(diary, e -> e.getTitle().contains(title));
   }
 
+  /**
+   * This method sorts based on if the tag.
+   *
+   * @param diary the diary
+   * @param tag tag to search by
+   * @return sorted list
+   */
   public static HashMap<Integer, Entry> searchTag(HashMap<Integer, Entry> diary, String tag) {
     return searchEntries(diary, e -> e.getTags().contains(tag));
   }
 
+  /**
+   * This method sorts based on the author.
+   *
+   * @param diary the diary
+   * @param author author to search by
+   * @return sorted list
+   */
   public static HashMap<Integer, Entry> searchAuthor(HashMap<Integer, Entry> diary, Author author) {
     return searchEntries(diary, e -> e.getAuthor().getName().equals(author.getName()));
   }
@@ -46,13 +67,13 @@ public class EntrySort {
   }
 
   /**
-   * This method serves to search for entries in between two dates.
+   * This method sorts based on a time period.
    * The exclamation points in the lambda statements serves to include the date.
    *
-   * @param diary
-   * @param start
-   * @param end
-   * @return
+   * @param diary the diary
+   * @param start start date
+   * @param end end date
+   * @return sorted list
    */
   public static HashMap<Integer, Entry> searchPeriod(HashMap<Integer, Entry> diary,
       LocalDate start, LocalDate end) {

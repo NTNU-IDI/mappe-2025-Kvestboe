@@ -12,7 +12,9 @@ import java.util.Map;
 public class ConsoleView {
 
   /**
-   * This method will print the main menu.
+   * Print the main menu options based on whether the diary is empty.
+   *
+   * @param entryManager the EntryManager providing access to the diary
    */
   static void promptForMenuAction(EntryManager entryManager) {
     if (entryManager.getDiary().isEmpty()) {
@@ -34,6 +36,11 @@ public class ConsoleView {
     }
   }
 
+  /**
+   * Print the edit menu for a single entry showing editable fields and actions.
+   *
+   * @param entry the Entry whose fields are shown for editing
+   */
   static void promptForEditAction(Entry entry) {
     System.out.println("Is there anything you wish to edit?");
     System.out.println("author: " + entry.getAuthor().getName());
@@ -47,6 +54,10 @@ public class ConsoleView {
 
   }
 
+  /**
+   * Print the content submenu offering read, write, and append actions.
+   * The method lists available content operations and prints a prompt for user input.
+   */
   static void promptForContentAction() {
     System.out.println("What do you wish to do?");
     System.out.println("read: read the content of the diary");
@@ -57,6 +68,9 @@ public class ConsoleView {
 
   }
 
+  /**
+   * Print the tag management submenu offering add and remove actions.
+   */
   static void promptForTagAction() {
 
     System.out.println("What do you wish to do with the tags.");
@@ -66,6 +80,9 @@ public class ConsoleView {
     System.out.print("> ");
   }
 
+  /**
+   * Print the search submenu describing available search criteria.
+   */
   static void promptForSearchAction() {
     System.out.println("What do you wish to search the diaries by?");
     System.out.println("all: print all entries");
@@ -79,14 +96,29 @@ public class ConsoleView {
 
   }
 
+  /**
+   * Prompt the user for a yes or no confirmation.
+   * The prompt expects the user to answer "yes" or "no".
+   */
   static void promptConfirmationAction() {
     System.out.print("Are you sure (yes/no): ");
   }
 
+  /**
+   * Prompt the user to enter date in format YYYY-MM-DD.
+   */
   static void promptMakeDate() {
     System.out.print("Write in the date in the format \"YYYY-MM-DD\": ");
   }
 
+  /**
+   * Print a list of entries with their integer keys and titles.
+   * If the provided map is empty, prints a message and returns false.
+   * Else prints each key and title and returns true.
+   *
+   * @param entries a map from integer keys to Entry objects
+   * @return true if at least one entry was printed, false if the map was empty
+   */
   static boolean printEntries(HashMap<Integer, Entry> entries) {
     if (entries.isEmpty()) {
       System.out.println("No entries found.");
@@ -101,14 +133,30 @@ public class ConsoleView {
 
   }
 
+  /**
+   * Print an invalid choice message.
+   */
   static void printInvalidAction() {
     System.out.println("Invalid choice.");
   }
 
+  /**
+   * Print the given prompt.
+   *
+   * @param prompt prompt is the text to be printed
+   */
   static void printLine(String prompt) {
     System.out.print(prompt);
   }
 
+
+  /**
+   * Print the list of authors highlighting the active author.
+   * Also prints options to create a new user or exit the user manager.
+   *
+   * @param authorManager the AuthorManager providing the list of author names
+   * @param activeAuthor the currently active Author to highlight
+   */
   static void promptAuthorOptions(AuthorManager authorManager, Author activeAuthor) {
     final String Reset = "\u001B[0m";
     final String Green = "\u001B[32m";
@@ -125,12 +173,23 @@ public class ConsoleView {
     System.out.print("> ");
   }
 
+
+  /**
+   * Print the available authors for selection and a prompt to exit the picker.
+   *
+   * @param authorManager the AuthorManager providing the list of author names
+   */
   static void promptAuthorPicker(AuthorManager authorManager) {
     authorManager.getAuthors().forEach(System.out::println);
     System.out.println("none: exit author picker");
     System.out.print("> ");
   }
 
+  /**
+   * Print diary statistics including entries this month, top tags, and author counts.
+   *
+   * @param entryManager the EntryManager used to obtain statistics
+   */
   static void printStatistics(EntryManager entryManager) {
     Statistic stat = entryManager.getStatistic();
     System.out.println("Entries this month: " + stat.getEntriesThisMonth());
