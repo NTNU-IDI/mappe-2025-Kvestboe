@@ -1,5 +1,3 @@
-""""
-
 # Portfolio project IDATT1003
 
 STUDENT NAME = Kristian Vestbø  
@@ -38,7 +36,6 @@ src/
 └── test/
     ├── test.iml
     └── java/
-        ├── Test.java
         ├── modelTest/
         │   ├── AuthorTest.java
         │   ├── EntryTest.java
@@ -76,6 +73,3 @@ https://www.geeksforgeeks.org/
 Used to learn how to make UML diagram.
 
 AI was used minimally as to learn more. Although it was used for explaining stringbuilder and learning some methods in Java. Also to make the filetree you see in this readme. The AI model used was ChatGPT 5.
-
-
-"""
