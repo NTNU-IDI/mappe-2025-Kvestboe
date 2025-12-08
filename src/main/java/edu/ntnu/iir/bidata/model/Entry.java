@@ -65,7 +65,7 @@ public class Entry {
    * @param author author of entry
    */
   public void setAuthor(Author author) {
-    this.author = author;
+    if (this.author!=null) this.author = author;
   }
 
   /**
@@ -114,7 +114,7 @@ public class Entry {
    * @param tags tags of entry
    */
   public void setTags(ArrayList<String> tags) {
-    this.tags = tags;
+    if (tags!=null) this.tags = tags;
   }
 
   /**
@@ -159,7 +159,7 @@ public class Entry {
    * @param localDate date of the entry
    */
   public void setDate(LocalDate localDate) {
-    date = localDate;
+    if (localDate!=null) date = localDate;
   }
 
   /**
