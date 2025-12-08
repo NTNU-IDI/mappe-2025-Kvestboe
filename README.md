@@ -11,7 +11,7 @@ This project is a text-based diary application in the terminal. The diary allows
 
 The project consists of three directories. Model, storage and ui. The model directory stores the "groundwork" of the project, and is what makes the entries, users and statistics. In the storage directory you can find the register for the different models, entries and users, and is what saves it so it can be used later. In addition to also having the different search methods, which are in the storage classes. As the ui stands for user input it is self-explanatory. The class takes in input from the user and passes it on to the different classes. It also serves as the flow for the diary application.
 Likewise the test classes has two folders. The first one for the model tests. The second one for the storage tests. 
-
+```
 File tree made by AI:
 src/
 ├── main/
@@ -43,7 +43,7 @@ src/
         └── storageTest/
             ├── AuthorManagerTest.java
             └── EntryManagerTest.java
-
+```
 ## Link to repository
 
 This link will direct you to the repository:
