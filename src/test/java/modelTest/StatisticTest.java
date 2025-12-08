@@ -45,8 +45,8 @@ public class StatisticTest {
   @Test
   void testStatisticIncrementers() {
     LocalDate date = LocalDate.now();
-    HashMap<Author, Integer> entryCount = new HashMap<>();
-    entryCount.put(author, 1);
+    HashMap<String, Integer> entryCount = new HashMap<>();
+    entryCount.put(author.getName(), 1);
     HashMap<String, Integer> tagCount = new HashMap<>();
     tagCount.put("test", 1);
 
@@ -75,8 +75,8 @@ public class StatisticTest {
   @Test
   void testStatisticDecrementers() {
     LocalDate date = LocalDate.now();
-    HashMap<Author, Integer> entryCount = new HashMap<>();
-    entryCount.put(author, 0);
+    HashMap<String, Integer> entryCount = new HashMap<>();
+    entryCount.put(author.getName(), 0);
     HashMap<String, Integer> tagCount = new HashMap<>();
     tagCount.put("test", 0);
 
