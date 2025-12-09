@@ -5,7 +5,9 @@ import edu.ntnu.iir.bidata.model.Statistic;
 import java.util.HashMap;
 
 /**
- * The EntryManager class represents the diary in the application, where the entries are saved.
+ * The EntryManager class represents the diary in the application.
+ *
+ * <p>This is the storage for the entry objects, which stores the entries.</p>
  */
 public class EntryManager {
 
@@ -16,6 +18,13 @@ public class EntryManager {
 
   Statistic stat;
 
+  /**
+   * This is the constructor for the EntryManger class.
+   *
+   * <p>The statistic goes into EntryManager as it allows for easier updating of Statistic.</p>
+   *
+   * @param stat stat is an object of the Statistic class, and the stats to be recorded
+   */
   public EntryManager(Statistic stat) {
     this.stat = stat;
   }

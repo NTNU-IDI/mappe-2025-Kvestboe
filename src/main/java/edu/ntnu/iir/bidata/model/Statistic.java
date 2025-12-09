@@ -5,6 +5,9 @@ import java.util.HashMap;
 
 /**
  * This class represent the statistics in the diary.
+ *
+ * <p>It is passed onto the EntryManager in the project for convenience,
+ * since it's easy to update Statistic through that class.</p>
  */
 public class Statistic {
 
@@ -27,7 +30,7 @@ public class Statistic {
    * This method will increment the entry count,
    * and register the author if it was not in it from before.
    *
-   * @param
+   * @param authorName authorName is the name of entry's author
    */
   public void incrementAuthorCount(String authorName) {
     authorCount.put(authorName, authorCount.getOrDefault(authorName, 0) + 1);
@@ -57,7 +60,7 @@ public class Statistic {
   /**
    * This method will decrement the entry count for author.
    *
-   * @param
+   * @param authorName authorName is the name of the entry's author
    */
   public void decrementAuthorCount(String authorName) {
     authorCount.put(authorName, authorCount.getOrDefault(authorName, 0) - 1);

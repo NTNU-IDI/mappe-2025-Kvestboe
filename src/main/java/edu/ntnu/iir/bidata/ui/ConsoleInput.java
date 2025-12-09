@@ -1,6 +1,9 @@
 package edu.ntnu.iir.bidata.ui;
 
-import static edu.ntnu.iir.bidata.ui.ConsoleView.*;
+import static edu.ntnu.iir.bidata.ui.ConsoleView.printInvalidAction;
+import static edu.ntnu.iir.bidata.ui.ConsoleView.printLine;
+import static edu.ntnu.iir.bidata.ui.ConsoleView.promptConfirmationAction;
+import static edu.ntnu.iir.bidata.ui.ConsoleView.promptMakeDate;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -8,6 +11,8 @@ import java.util.Scanner;
 
 /**
  * This class is responsible for taking all the input.
+ *
+ * <p>Taking all input into a single class, which improves the cohesion.</p>
  */
 public class ConsoleInput {
 

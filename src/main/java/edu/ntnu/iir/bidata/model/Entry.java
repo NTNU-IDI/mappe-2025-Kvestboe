@@ -5,6 +5,9 @@ import java.util.ArrayList;
 
 /**
  * The entry class represents an entry in the diary application.
+ *
+ * <p>This is the data of the entry,
+ * this is the class the diary is based on and is the information each entry.</p>
  */
 public class Entry {
 
@@ -65,7 +68,9 @@ public class Entry {
    * @param author author of entry
    */
   public void setAuthor(Author author) {
-    if (this.author!=null) this.author = author;
+    if (this.author != null) {
+      this.author = author;
+    }
   }
 
   /**
@@ -114,7 +119,9 @@ public class Entry {
    * @param tags tags of entry
    */
   public void setTags(ArrayList<String> tags) {
-    if (tags!=null) this.tags = tags;
+    if (tags != null) {
+      this.tags = tags;
+    }
   }
 
   /**
@@ -159,11 +166,15 @@ public class Entry {
    * @param localDate date of the entry
    */
   public void setDate(LocalDate localDate) {
-    if (localDate!=null) date = localDate;
+    if (localDate != null) {
+      date = localDate;
+    }
   }
 
   /**
    * Creates a copy of this entry.
+   *
+   * <p>This method is returns an immutable version af an entry, for better encapsulation.</p>
    *
    * @return a new Entry object with the same values
    */

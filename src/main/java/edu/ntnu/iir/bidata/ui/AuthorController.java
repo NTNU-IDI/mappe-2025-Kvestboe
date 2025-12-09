@@ -1,12 +1,20 @@
 package edu.ntnu.iir.bidata.ui;
 
-import static edu.ntnu.iir.bidata.ui.ConsoleView.*;
+import static edu.ntnu.iir.bidata.ui.ConsoleView.printInvalidAction;
+import static edu.ntnu.iir.bidata.ui.ConsoleView.printLine;
+import static edu.ntnu.iir.bidata.ui.ConsoleView.promptAuthorOptions;
+import static edu.ntnu.iir.bidata.ui.ConsoleView.promptAuthorPicker;
 
 import edu.ntnu.iir.bidata.model.Author;
 import edu.ntnu.iir.bidata.storage.AuthorManager;
 
 /**
-  * Responsible for the flow of the author options in the diary
+ * Responsible for the flow of the author options in the diary.
+ *
+ * <p>This class is responsible for the flow of the application
+ * when the user chooses to do anything with the authors.
+ * This would include author options, settings and editing the author in an entry.
+ * The class is only responsible for author which calls for high cohesion.</p>
  */
 public class AuthorController {
 

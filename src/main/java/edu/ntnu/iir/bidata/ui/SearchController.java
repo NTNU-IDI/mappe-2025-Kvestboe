@@ -1,7 +1,12 @@
 package edu.ntnu.iir.bidata.ui;
 
-import static edu.ntnu.iir.bidata.ui.ConsoleView.*;
-import static edu.ntnu.iir.bidata.utils.EntrySort.*;
+import static edu.ntnu.iir.bidata.ui.ConsoleView.printEntries;
+import static edu.ntnu.iir.bidata.ui.ConsoleView.promptForSearchAction;
+import static edu.ntnu.iir.bidata.utils.EntrySort.searchAuthor;
+import static edu.ntnu.iir.bidata.utils.EntrySort.searchDate;
+import static edu.ntnu.iir.bidata.utils.EntrySort.searchPeriod;
+import static edu.ntnu.iir.bidata.utils.EntrySort.searchTag;
+import static edu.ntnu.iir.bidata.utils.EntrySort.searchTitle;
 
 import edu.ntnu.iir.bidata.model.Author;
 import edu.ntnu.iir.bidata.model.Entry;
@@ -12,8 +17,9 @@ import java.util.HashMap;
 
 /**
  * Controller responsible for searching and selecting diary entries.
- * Uses AuthorController to pick authors, ConsoleInput for user interaction,
- * and EntryController to open the edit flow for a selected entry.
+ *
+ * <p>Uses AuthorController to pick authors, ConsoleInput for user interaction,
+ * and EntryController to open the edit flow for a selected entry.</p>
  */
 public class SearchController {
 
@@ -28,7 +34,8 @@ public class SearchController {
    * @param input console input helper used to read user input
    * @param entryController controller used to open the entry edit flow
    */
-  public SearchController(AuthorController authorController, ConsoleInput input, EntryController entryController) {
+  public SearchController(AuthorController authorController,
+      ConsoleInput input, EntryController entryController) {
     this.authorController = authorController;
     this.input = input;
     this.entryController = entryController;
@@ -90,7 +97,9 @@ public class SearchController {
     if (!entries.isEmpty()) {
       printEntries(entries);
       return input.readInt("Write the number of the diary you want to pick (-1 for none): ");
-    } else return -1;
+    } else {
+      return -1;
+    }
   }
 
   /**
@@ -104,9 +113,11 @@ public class SearchController {
     String tag = input.readLine("Write in the tag you want to search by: ");
     HashMap<Integer, Entry> entries = searchTag(diary, tag);
 
-    if (printEntries(entries))
+    if (printEntries(entries)) {
       return input.readInt("Write the number of the diary you want to pick (-1 for none): ");
-    else return -1;
+    } else {
+      return -1;
+    }
   }
 
   /**
@@ -120,9 +131,11 @@ public class SearchController {
     HashMap<Integer, Entry> diary = entryManager.getDiary();
     Author author = authorController.pickAuthor(authorManager);
     HashMap<Integer, Entry> entries = searchAuthor(diary, author);
-    if (printEntries(entries))
+    if (printEntries(entries)) {
       return input.readInt("Write the number of the diary you want to pick (-1 for none): ");
-    else return -1;
+    } else {
+      return -1;
+    }
   }
 
   /**
@@ -135,9 +148,11 @@ public class SearchController {
     HashMap<Integer, Entry> diary = entryManager.getDiary();
     LocalDate localDate = input.readDate();
     HashMap<Integer, Entry> entries = searchDate(diary, localDate);
-    if (printEntries(entries))
+    if (printEntries(entries)) {
       return input.readInt("Write the number of the diary you want to pick (-1 for none): ");
-    else return -1;
+    } else {
+      return -1;
+    }
   }
 
   /**
@@ -151,8 +166,10 @@ public class SearchController {
     LocalDate date1 = input.readDate();
     LocalDate date2 = input.readDate();
     HashMap<Integer, Entry> entries = searchPeriod(diary, date1, date2);
-    if (printEntries(entries))
+    if (printEntries(entries)) {
       return input.readInt("Write the number of the diary you want to pick (-1 for none): ");
-    else return -1;
+    } else {
+      return -1;
+    }
   }
 }

@@ -1,6 +1,8 @@
 package edu.ntnu.iir.bidata.ui;
 
-import static edu.ntnu.iir.bidata.ui.ConsoleView.*;
+import static edu.ntnu.iir.bidata.ui.ConsoleView.printInvalidAction;
+import static edu.ntnu.iir.bidata.ui.ConsoleView.printStatistics;
+import static edu.ntnu.iir.bidata.ui.ConsoleView.promptForMenuAction;
 
 import edu.ntnu.iir.bidata.model.Author;
 import edu.ntnu.iir.bidata.model.Statistic;
@@ -10,7 +12,10 @@ import java.util.Scanner;
 
 /**
  * Controller for the diary application.
- * This represents the flow of the main menu for the diary.
+ *
+ * <p>This represents the flow of the main menu for the diary.
+ * This acts as a god-class,
+ * which initiates the application and handles the main flow of it too.</p>
  */
 public class Controller {
   Statistic statistic;
@@ -28,9 +33,10 @@ public class Controller {
 
   /**
    * Initialize the diary application.
-   * Creates the Statistic, AuthorManager, EntryManager, ConsoleInput and
+   *
+   * <p>Creates the Statistic, AuthorManager, EntryManager, ConsoleInput and
    * controller instances, then prompts the user to add the initial author.
-   * This method must be called before start() when components are not yet set up.
+   * This method must be called before start() when components are not yet set up.</p>
    */
   public void initialize() {
     statistic  = new Statistic();
@@ -50,13 +56,14 @@ public class Controller {
 
   /**
    * Start the diary program and run the main loop.
-   * This method repeatedly show the main menu,
-   * reads the user's choice and directs the flow.
+   *
+   * <p>This method repeatedly show the main menu,
+   * reads the user's choice and directs the flow.</p>
    */
   public void start() {
 
     if (authorManager != null && entryManager != null && input != null
-        && authorController != null && entryController!= null && author != null) {
+        && authorController != null && entryController != null && author != null) {
       boolean runProgram = true;
 
       while (runProgram) {
@@ -67,7 +74,7 @@ public class Controller {
         switch (menuChoice) {
           case "new" -> entryController.createEntry(entryManager, author, authorManager);
 
-          case "prior" -> searchController.searchEntries(entryManager,authorManager);
+          case "prior" -> searchController.searchEntries(entryManager, authorManager);
 
           case "author" -> {
             Author newAuthor = authorController.authorOptions(authorManager, author);

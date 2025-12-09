@@ -6,7 +6,12 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.function.Predicate;
 
-
+/**
+ * This class is responsible for the sorting of the diaries.
+ *
+ * <p>This class makes for less clutter in the EntryManager class,
+ * as the EntryController calls to this class instead to call for sorting</p>
+ */
 public class EntrySort {
 
   /**
@@ -62,6 +67,13 @@ public class EntrySort {
     return searchEntries(diary, e -> e.getAuthor().getName().equals(author.getName()));
   }
 
+  /**
+   * This method will return all entries on a specific date.
+   *
+   * @param diary diary of the application
+   * @param date date of the entries to be found
+   * @return an HashMap of entries on specific date
+   */
   public static HashMap<Integer, Entry> searchDate(HashMap<Integer, Entry> diary, LocalDate date) {
     return searchEntries(diary, e -> e.getDate().isEqual(date));
   }

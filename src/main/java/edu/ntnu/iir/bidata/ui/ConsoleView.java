@@ -9,12 +9,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class holds the print statements in the application.
+ *
+ * <p>This class handles all printing and options, which calls for better cohesion.
+ * The functions are also static which leads to better coupling,
+ * and is possible since it doesn't need much context.</p>
+ */
 public class ConsoleView {
 
   /**
    * Print the main menu options based on whether the diary is empty.
    *
    * @param entryManager the EntryManager providing access to the diary
+   *
    */
   static void promptForMenuAction(EntryManager entryManager) {
     if (entryManager.getDiary().isEmpty()) {
@@ -149,7 +157,6 @@ public class ConsoleView {
     System.out.print(prompt);
   }
 
-
   /**
    * Print the list of authors highlighting the active author.
    * Also prints options to create a new user or exit the user manager.
@@ -172,7 +179,6 @@ public class ConsoleView {
     System.out.println("none: exit user manager");
     System.out.print("> ");
   }
-
 
   /**
    * Print the available authors for selection and a prompt to exit the picker.

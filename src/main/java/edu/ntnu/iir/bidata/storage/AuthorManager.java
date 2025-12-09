@@ -6,6 +6,9 @@ import java.util.HashMap;
 
 /**
  * Represents a register of authors in the diary application.
+ *
+ * <p>This class is the storage which stores the authors,
+ * as it saves the objects of the Author class.</p>
  */
 public class AuthorManager {
 
